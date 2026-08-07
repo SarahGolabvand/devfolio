@@ -1,0 +1,911 @@
+{% load static %}{% load i18n %} {% get_current_language as LANGUAGE_CODE %}
+<!doctype html>
+<html
+  lang="{{ LANGUAGE_CODE }}"
+  dir="{% if LANGUAGE_CODE|slice:':2' == 'fa' %}rtl{% else %}ltr{% endif %}"
+  class="scroll-smooth"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Browse backend, API, SaaS, and automation projects by Django developer Alex Morgan."
+    />
+    <title>All Projects — Alex Morgan</title>
+    <script>
+      (() => {
+        let storedTheme = null;
+        try {
+          storedTheme = localStorage.getItem("theme");
+        } catch {}
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        if (storedTheme === "dark" || (!storedTheme && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+            },
+            colors: {
+              brand: {
+                50: "#eef7ff",
+                100: "#d9edff",
+                200: "#bce0ff",
+                300: "#8dccff",
+                400: "#38a2ff",
+                500: "#1688f8",
+                600: "#0870dc",
+                700: "#0959b2",
+                800: "#0d4b8d",
+                900: "#103f75",
+                950: "#0b284d",
+              },
+            },
+            boxShadow: {
+              soft: "0 18px 50px -24px rgba(15, 23, 42, 0.25)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      ::selection {
+        background: #1688f8;
+        color: white;
+      }
+
+      dialog::backdrop {
+        background: rgb(15 23 42 / 0.72);
+        backdrop-filter: blur(6px);
+      }
+
+      html[dir="rtl"] h1,
+      html[dir="rtl"] h2,
+      html[dir="rtl"] h3 {
+        letter-spacing: 0;
+      }
+
+      html[dir="rtl"] [data-directional-icon] {
+        transform: scaleX(-1);
+      }
+
+      html[dir="rtl"] [data-search-field] svg {
+        left: auto;
+        right: 1rem;
+      }
+
+      html[dir="rtl"] [data-search-field] input {
+        padding-left: 1rem;
+        padding-right: 2.75rem;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-white font-sans text-slate-700 antialiased transition-colors duration-300 dark:bg-slate-950 dark:text-slate-300"
+  >
+    <header
+      class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/85"
+    >
+      <nav
+        class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-10"
+        aria-label="Primary navigation"
+      >
+        <a
+          href="index.html"
+          class="group flex items-center gap-3"
+          aria-label="Alex Morgan home"
+        >
+          <span
+            class="grid size-10 place-items-center rounded-xl bg-brand-600 text-sm font-black text-white shadow-lg shadow-brand-600/20 transition-transform group-hover:-rotate-3"
+            >AM</span
+          >
+          <span
+            class="text-sm font-extrabold tracking-tight text-slate-950 dark:text-white"
+            >Alex Morgan</span
+          >
+        </a>
+
+        <div class="hidden items-center gap-8 md:flex">
+          <a
+            href="index.html#about"
+            class="text-sm font-semibold text-slate-600 transition hover:text-brand-600 dark:text-slate-300 dark:hover:text-brand-400"
+            >{% translate "About" %}</a
+          >
+          <a
+            href="index.html#skills"
+            class="text-sm font-semibold text-slate-600 transition hover:text-brand-600 dark:text-slate-300 dark:hover:text-brand-400"
+            >{% translate "Skills" %}</a
+          >
+          <a
+            href="projects.html"
+            class="text-sm font-extrabold text-brand-600 dark:text-brand-400"
+            aria-current="page"
+            >{% translate "Projects" %}</a
+          >
+          <a
+            href="index.html#contact"
+            class="text-sm font-semibold text-slate-600 transition hover:text-brand-600 dark:text-slate-300 dark:hover:text-brand-400"
+            >{% translate "Contact" %}</a
+          >
+        </div>
+
+        <div class="flex items-center gap-2">
+          {% include "partials/language_switcher.html" %}
+          <button
+            type="button"
+            data-theme-toggle
+            class="grid size-10 place-items-center rounded-xl border border-slate-200 bg-white text-slate-600 transition hover:border-brand-200 hover:text-brand-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-brand-500/50 dark:hover:text-brand-400"
+            aria-label="Toggle color theme"
+          >
+            <svg
+              class="size-5 dark:hidden"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 3v1.5m0 15V21m9-9h-1.5M4.5 12H3m15.364-6.364-1.061 1.061M6.697 17.303l-1.061 1.061m12.728 0-1.061-1.061M6.697 6.697 5.636 5.636"
+              />
+              <circle cx="12" cy="12" r="4" />
+            </svg>
+            <svg
+              class="hidden size-5 dark:block"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M20.354 15.354A9 9 0 0 1 8.646 3.646a9.002 9.002 0 1 0 11.708 11.708Z"
+              />
+            </svg>
+          </button>
+          <button
+            type="button"
+            data-menu-toggle
+            class="grid size-10 place-items-center rounded-xl border border-slate-200 text-slate-700 md:hidden dark:border-slate-700 dark:text-slate-200"
+            aria-label="Toggle navigation menu"
+            aria-expanded="false"
+          >
+            <svg
+              class="size-5"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+          </button>
+        </div>
+      </nav>
+
+      <div
+        data-mobile-menu
+        class="hidden border-t border-slate-200 px-5 py-4 md:hidden dark:border-slate-800"
+      >
+        <div class="mx-auto grid max-w-7xl gap-1">
+          <a
+            href="index.html#about"
+            class="rounded-lg px-3 py-2 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-900"
+            >{% translate "About" %}</a
+          >
+          <a
+            href="index.html#skills"
+            class="rounded-lg px-3 py-2 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-900"
+            >{% translate "Skills" %}</a
+          >
+          <a
+            href="projects.html"
+            class="rounded-lg bg-brand-50 px-3 py-2 text-sm font-extrabold text-brand-700 dark:bg-brand-500/10 dark:text-brand-400"
+            aria-current="page"
+            >{% translate "Projects" %}</a
+          >
+          <a
+            href="index.html#contact"
+            class="rounded-lg px-3 py-2 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-900"
+            >{% translate "Contact" %}</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section
+        class="relative isolate overflow-hidden border-b border-slate-200 bg-slate-50 py-20 sm:py-24 dark:border-slate-800 dark:bg-slate-900/40"
+      >
+        <div
+          class="absolute inset-x-0 top-0 -z-10 h-80 bg-gradient-to-b from-brand-100/70 to-transparent dark:from-brand-500/10"
+        ></div>
+        <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <nav
+            aria-label="Breadcrumb"
+            class="flex items-center gap-2 text-sm font-semibold text-slate-500"
+          >
+            <a
+              href="index.html"
+              class="transition hover:text-brand-600 dark:hover:text-brand-400"
+              >Home</a
+            >
+            <svg
+              data-directional-icon
+              class="size-4"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m9 18 6-6-6-6"
+              />
+            </svg>
+            <span class="text-slate-900 dark:text-white">Projects</span>
+          </nav>
+          <div class="mt-10 grid items-end gap-8 lg:grid-cols-[1fr_auto]">
+            <div class="max-w-3xl">
+              <p
+                class="text-sm font-black uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400"
+              >
+                Project archive
+              </p>
+              <h1
+                class="mt-4 text-4xl font-black tracking-[-0.04em] text-slate-950 sm:text-6xl dark:text-white"
+              >
+                Solutions built for meaningful work.
+              </h1>
+              <p
+                class="mt-6 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300"
+              >
+                Explore selected SaaS platforms, APIs, internal tools, and
+                automation systems designed around real business needs.
+              </p>
+            </div>
+            <div
+              class="rounded-2xl border border-slate-200 bg-white px-6 py-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"
+            >
+              <p
+                class="text-xs font-black uppercase tracking-wider text-slate-500"
+              >
+                Showing
+              </p>
+              <p
+                class="mt-1 text-3xl font-black text-slate-950 dark:text-white"
+              >
+                <span data-project-count>6</span> projects
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-16 sm:py-20">
+        <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <div
+            class="flex flex-col gap-5 border-b border-slate-200 pb-8 lg:flex-row lg:items-center lg:justify-between dark:border-slate-800"
+          >
+            <div class="flex flex-wrap gap-2" aria-label="Filter projects">
+              <button
+                type="button"
+                data-project-filter="all"
+                aria-pressed="true"
+                class="rounded-xl border border-slate-200 !bg-slate-950 px-4 py-2.5 text-sm font-bold !text-white transition hover:border-brand-300 dark:border-slate-700 dark:!bg-white dark:!text-slate-950"
+              >
+                All
+              </button>
+              <button
+                type="button"
+                data-project-filter="saas"
+                aria-pressed="false"
+                class="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-600 transition hover:border-brand-300 hover:text-brand-600 dark:border-slate-700 dark:text-slate-300 dark:hover:border-brand-500/50 dark:hover:text-brand-400"
+              >
+                SaaS
+              </button>
+              <button
+                type="button"
+                data-project-filter="api"
+                aria-pressed="false"
+                class="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-600 transition hover:border-brand-300 hover:text-brand-600 dark:border-slate-700 dark:text-slate-300 dark:hover:border-brand-500/50 dark:hover:text-brand-400"
+              >
+                API
+              </button>
+              <button
+                type="button"
+                data-project-filter="automation"
+                aria-pressed="false"
+                class="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-600 transition hover:border-brand-300 hover:text-brand-600 dark:border-slate-700 dark:text-slate-300 dark:hover:border-brand-500/50 dark:hover:text-brand-400"
+              >
+                Automation
+              </button>
+              <button
+                type="button"
+                data-project-filter="commerce"
+                aria-pressed="false"
+                class="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-600 transition hover:border-brand-300 hover:text-brand-600 dark:border-slate-700 dark:text-slate-300 dark:hover:border-brand-500/50 dark:hover:text-brand-400"
+              >
+                Commerce
+              </button>
+            </div>
+            <label data-search-field class="relative block w-full lg:w-80">
+              <span class="sr-only">Search projects</span>
+              <svg
+                class="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-slate-400"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <path stroke-linecap="round" d="m20 20-4-4" />
+              </svg>
+              <input
+                type="search"
+                data-project-search
+                placeholder="Search projects..."
+                class="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+              />
+            </label>
+          </div>
+
+          <!-- Future integration: replace these cards with a Django template loop or fetch the full project collection from your API. -->
+          <div class="mt-10 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+            <article
+              data-project-card
+              data-categories="saas api"
+              class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-soft dark:border-slate-800 dark:bg-slate-900"
+            >
+              <div
+                class="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-cyan-100 via-sky-50 to-blue-200 dark:from-cyan-950 dark:via-slate-900 dark:to-blue-950"
+              >
+                <div
+                  class="absolute inset-7 rounded-xl border border-white/70 bg-white/75 p-4 shadow-xl backdrop-blur dark:border-slate-700 dark:bg-slate-900/80"
+                >
+                  <div class="flex gap-2">
+                    <span class="size-2 rounded-full bg-rose-400"></span
+                    ><span class="size-2 rounded-full bg-amber-400"></span
+                    ><span class="size-2 rounded-full bg-emerald-400"></span>
+                  </div>
+                  <div class="mt-5 grid grid-cols-3 gap-3">
+                    <span
+                      class="h-14 rounded-lg bg-brand-100 dark:bg-brand-500/20"
+                    ></span
+                    ><span
+                      class="h-14 rounded-lg bg-slate-100 dark:bg-slate-800"
+                    ></span
+                    ><span
+                      class="h-14 rounded-lg bg-slate-100 dark:bg-slate-800"
+                    ></span>
+                  </div>
+                  <div
+                    class="mt-3 h-16 rounded-lg bg-slate-100 dark:bg-slate-800"
+                  ></div>
+                </div>
+              </div>
+              <div class="p-6">
+                <div
+                  class="flex gap-2 text-xs font-bold text-brand-600 dark:text-brand-400"
+                >
+                  <span>SaaS</span><span>•</span><span>Analytics</span>
+                </div>
+                <h2
+                  class="mt-3 text-xl font-black text-slate-950 dark:text-white"
+                >
+                  MetricFlow Dashboard
+                </h2>
+                <p
+                  class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400"
+                >
+                  Multi-tenant analytics with live reporting, permissions, and
+                  scheduled exports.
+                </p>
+                <a
+                  href="project-detail.html"
+                  class="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-slate-950 transition group-hover:text-brand-600 dark:text-white dark:group-hover:text-brand-400"
+                  >View details <span aria-hidden="true">→</span></a
+                >
+              </div>
+            </article>
+
+            <article
+              data-project-card
+              data-categories="api"
+              class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-soft dark:border-slate-800 dark:bg-slate-900"
+            >
+              <div
+                class="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-violet-100 via-fuchsia-50 to-pink-200 dark:from-violet-950 dark:via-slate-900 dark:to-fuchsia-950"
+              >
+                <div
+                  class="absolute left-8 right-8 top-8 rounded-2xl border border-white/70 bg-white/80 p-4 shadow-xl backdrop-blur dark:border-slate-700 dark:bg-slate-900/80"
+                >
+                  <div class="flex items-center justify-between">
+                    <span
+                      class="h-3 w-20 rounded-full bg-slate-200 dark:bg-slate-700"
+                    ></span
+                    ><span
+                      class="size-7 rounded-full bg-violet-200 dark:bg-violet-500/30"
+                    ></span>
+                  </div>
+                  <div class="mt-5 flex items-end gap-2">
+                    <span
+                      class="h-12 flex-1 rounded-t bg-violet-200 dark:bg-violet-500/20"
+                    ></span
+                    ><span
+                      class="h-20 flex-1 rounded-t bg-violet-400 dark:bg-violet-500/50"
+                    ></span
+                    ><span
+                      class="h-16 flex-1 rounded-t bg-fuchsia-300 dark:bg-fuchsia-500/30"
+                    ></span
+                    ><span
+                      class="h-24 flex-1 rounded-t bg-brand-400 dark:bg-brand-500/50"
+                    ></span>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <div
+                  class="flex gap-2 text-xs font-bold text-brand-600 dark:text-brand-400"
+                >
+                  <span>Fintech</span><span>•</span><span>API</span>
+                </div>
+                <h2
+                  class="mt-3 text-xl font-black text-slate-950 dark:text-white"
+                >
+                  Ledgerly API
+                </h2>
+                <p
+                  class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400"
+                >
+                  Secure transaction services with audit trails and automated
+                  reconciliation.
+                </p>
+                <a
+                  href="project-detail.html"
+                  class="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-slate-950 transition group-hover:text-brand-600 dark:text-white dark:group-hover:text-brand-400"
+                  >View details <span aria-hidden="true">→</span></a
+                >
+              </div>
+            </article>
+
+            <article
+              data-project-card
+              data-categories="automation saas"
+              class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-soft dark:border-slate-800 dark:bg-slate-900"
+            >
+              <div
+                class="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-emerald-100 via-teal-50 to-cyan-200 dark:from-emerald-950 dark:via-slate-900 dark:to-cyan-950"
+              >
+                <div
+                  class="absolute inset-x-7 bottom-0 top-7 rounded-t-xl border border-b-0 border-white/70 bg-white/80 p-4 shadow-xl backdrop-blur dark:border-slate-700 dark:bg-slate-900/80"
+                >
+                  <div
+                    class="h-3 w-24 rounded-full bg-slate-200 dark:bg-slate-700"
+                  ></div>
+                  <div class="mt-5 space-y-3">
+                    <div class="flex items-center gap-3">
+                      <span
+                        class="size-9 rounded-lg bg-emerald-200 dark:bg-emerald-500/20"
+                      ></span
+                      ><span
+                        class="h-2.5 flex-1 rounded-full bg-slate-100 dark:bg-slate-800"
+                      ></span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <span
+                        class="size-9 rounded-lg bg-brand-200 dark:bg-brand-500/20"
+                      ></span
+                      ><span
+                        class="h-2.5 flex-1 rounded-full bg-slate-100 dark:bg-slate-800"
+                      ></span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <span
+                        class="size-9 rounded-lg bg-violet-200 dark:bg-violet-500/20"
+                      ></span
+                      ><span
+                        class="h-2.5 flex-1 rounded-full bg-slate-100 dark:bg-slate-800"
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <div
+                  class="flex gap-2 text-xs font-bold text-brand-600 dark:text-brand-400"
+                >
+                  <span>Operations</span><span>•</span><span>Automation</span>
+                </div>
+                <h2
+                  class="mt-3 text-xl font-black text-slate-950 dark:text-white"
+                >
+                  Northstar Ops
+                </h2>
+                <p
+                  class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400"
+                >
+                  An operations hub unifying workflows, approvals, and team
+                  reporting.
+                </p>
+                <a
+                  href="project-detail.html"
+                  class="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-slate-950 transition group-hover:text-brand-600 dark:text-white dark:group-hover:text-brand-400"
+                  >View details <span aria-hidden="true">→</span></a
+                >
+              </div>
+            </article>
+
+            <article
+              data-project-card
+              data-categories="commerce api"
+              class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-soft dark:border-slate-800 dark:bg-slate-900"
+            >
+              <div
+                class="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-amber-100 via-orange-50 to-rose-100 dark:from-amber-950 dark:via-slate-900 dark:to-rose-950"
+              >
+                <div
+                  class="absolute inset-7 grid grid-cols-2 gap-3 rounded-xl border border-white/70 bg-white/75 p-4 shadow-xl backdrop-blur dark:border-slate-700 dark:bg-slate-900/80"
+                >
+                  <div class="rounded-lg bg-amber-100 p-3 dark:bg-amber-500/15">
+                    <div
+                      class="aspect-square rounded-md bg-white/80 dark:bg-slate-800"
+                    ></div>
+                    <div class="mt-2 h-2 rounded bg-amber-300/60"></div>
+                  </div>
+                  <div class="rounded-lg bg-rose-100 p-3 dark:bg-rose-500/15">
+                    <div
+                      class="aspect-square rounded-md bg-white/80 dark:bg-slate-800"
+                    ></div>
+                    <div class="mt-2 h-2 rounded bg-rose-300/60"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <div
+                  class="flex gap-2 text-xs font-bold text-brand-600 dark:text-brand-400"
+                >
+                  <span>Commerce</span><span>•</span><span>Marketplace</span>
+                </div>
+                <h2
+                  class="mt-3 text-xl font-black text-slate-950 dark:text-white"
+                >
+                  Mercato Platform
+                </h2>
+                <p
+                  class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400"
+                >
+                  A vendor marketplace with catalog management, orders, and
+                  payouts.
+                </p>
+                <a
+                  href="project-detail.html"
+                  class="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-slate-950 transition group-hover:text-brand-600 dark:text-white dark:group-hover:text-brand-400"
+                  >View details <span aria-hidden="true">→</span></a
+                >
+              </div>
+            </article>
+
+            <article
+              data-project-card
+              data-categories="saas automation"
+              class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-soft dark:border-slate-800 dark:bg-slate-900"
+            >
+              <div
+                class="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-indigo-100 via-blue-50 to-cyan-100 dark:from-indigo-950 dark:via-slate-900 dark:to-cyan-950"
+              >
+                <div
+                  class="absolute inset-x-8 top-8 rounded-xl border border-white/70 bg-white/80 p-4 shadow-xl backdrop-blur dark:border-slate-700 dark:bg-slate-900/80"
+                >
+                  <div class="flex items-center gap-3">
+                    <span
+                      class="grid size-10 place-items-center rounded-full bg-indigo-100 dark:bg-indigo-500/20"
+                      ><span class="size-3 rounded-full bg-indigo-500"></span
+                    ></span>
+                    <div class="flex-1">
+                      <div
+                        class="h-2.5 w-1/2 rounded bg-slate-200 dark:bg-slate-700"
+                      ></div>
+                      <div
+                        class="mt-2 h-2 w-3/4 rounded bg-slate-100 dark:bg-slate-800"
+                      ></div>
+                    </div>
+                  </div>
+                  <div
+                    class="my-3 ml-5 h-6 border-l-2 border-dashed border-indigo-200 dark:border-indigo-700"
+                  ></div>
+                  <div class="flex items-center gap-3">
+                    <span
+                      class="grid size-10 place-items-center rounded-full bg-emerald-100 dark:bg-emerald-500/20"
+                      ><span class="size-3 rounded-full bg-emerald-500"></span
+                    ></span>
+                    <div
+                      class="h-2.5 flex-1 rounded bg-slate-100 dark:bg-slate-800"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <div
+                  class="flex gap-2 text-xs font-bold text-brand-600 dark:text-brand-400"
+                >
+                  <span>Workflow</span><span>•</span><span>SaaS</span>
+                </div>
+                <h2
+                  class="mt-3 text-xl font-black text-slate-950 dark:text-white"
+                >
+                  Relay Automations
+                </h2>
+                <p
+                  class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400"
+                >
+                  A visual workflow engine for repeatable business process
+                  automation.
+                </p>
+                <a
+                  href="project-detail.html"
+                  class="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-slate-950 transition group-hover:text-brand-600 dark:text-white dark:group-hover:text-brand-400"
+                  >View details <span aria-hidden="true">→</span></a
+                >
+              </div>
+            </article>
+
+            <article
+              data-project-card
+              data-categories="api automation"
+              class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-soft dark:border-slate-800 dark:bg-slate-900"
+            >
+              <div
+                class="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-slate-200 via-slate-50 to-brand-100 dark:from-slate-800 dark:via-slate-900 dark:to-brand-950"
+              >
+                <div
+                  class="absolute inset-7 rounded-xl border border-white/70 bg-slate-950 p-4 font-mono text-[10px] leading-5 text-slate-400 shadow-xl dark:border-slate-700"
+                >
+                  <p>
+                    <span class="text-violet-400">POST</span> /api/v1/events
+                  </p>
+                  <p class="mt-2 text-slate-500">{</p>
+                  <p class="pl-4">
+                    <span class="text-sky-400">"status"</span>:
+                    <span class="text-emerald-400">"processed"</span>,
+                  </p>
+                  <p class="pl-4">
+                    <span class="text-sky-400">"jobs"</span>:
+                    <span class="text-amber-400">24</span>
+                  </p>
+                  <p class="text-slate-500">}</p>
+                </div>
+              </div>
+              <div class="p-6">
+                <div
+                  class="flex gap-2 text-xs font-bold text-brand-600 dark:text-brand-400"
+                >
+                  <span>Infrastructure</span><span>•</span><span>API</span>
+                </div>
+                <h2
+                  class="mt-3 text-xl font-black text-slate-950 dark:text-white"
+                >
+                  Pulse Event Gateway
+                </h2>
+                <p
+                  class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400"
+                >
+                  Reliable webhook delivery with retries, signatures, and
+                  monitoring.
+                </p>
+                <a
+                  href="project-detail.html"
+                  class="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-slate-950 transition group-hover:text-brand-600 dark:text-white dark:group-hover:text-brand-400"
+                  >View details <span aria-hidden="true">→</span></a
+                >
+              </div>
+            </article>
+          </div>
+
+          <div
+            data-projects-empty
+            class="hidden rounded-2xl border border-dashed border-slate-300 px-6 py-16 text-center dark:border-slate-700"
+          >
+            <div
+              class="mx-auto grid size-12 place-items-center rounded-xl bg-slate-100 text-slate-500 dark:bg-slate-800"
+            >
+              <svg
+                class="size-6"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <path stroke-linecap="round" d="m20 20-4-4" />
+              </svg>
+            </div>
+            <h2 class="mt-4 text-lg font-black text-slate-950 dark:text-white">
+              No matching projects
+            </h2>
+            <p class="mt-2 text-sm text-slate-500">
+              Try another search term or project category.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="pb-24 pt-4">
+        <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <div
+            class="relative isolate overflow-hidden rounded-[2rem] bg-slate-950 px-6 py-14 text-center shadow-2xl sm:px-12 sm:py-16 dark:border dark:border-slate-800"
+          >
+            <div
+              class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,_rgba(22,136,248,0.35),_transparent_40%)]"
+            ></div>
+            <p
+              class="text-sm font-black uppercase tracking-[0.18em] text-brand-400"
+            >
+              Need something different?
+            </p>
+            <h2
+              class="mx-auto mt-4 max-w-2xl text-3xl font-black tracking-tight text-white sm:text-4xl"
+            >
+              Let’s build the project your business needs.
+            </h2>
+            <p class="mx-auto mt-4 max-w-xl text-base leading-7 text-slate-300">
+              Share your requirements and get a practical plan for architecture,
+              delivery, and launch.
+            </p>
+            <button
+              type="button"
+              data-open-order
+              class="mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-7 py-4 text-sm font-extrabold text-white shadow-xl shadow-brand-500/20 transition hover:-translate-y-0.5 hover:bg-brand-400"
+            >
+              Start Order
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-slate-200 py-8 dark:border-slate-800">
+      <div
+        class="mx-auto flex max-w-7xl flex-col gap-4 px-5 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-10"
+      >
+        <p>© 2026 Alex Morgan. Built with care.</p>
+        <div class="flex gap-5">
+          <a
+            href="#"
+            class="font-semibold transition hover:text-brand-600 dark:hover:text-brand-400"
+            >GitHub</a
+          >
+          <a
+            href="#"
+            class="font-semibold transition hover:text-brand-600 dark:hover:text-brand-400"
+            >LinkedIn</a
+          >
+          <a
+            href="mailto:hello@example.com"
+            class="font-semibold transition hover:text-brand-600 dark:hover:text-brand-400"
+            >Email</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <dialog
+      id="order-dialog"
+      class="m-auto w-[calc(100%-2rem)] max-w-xl rounded-3xl bg-white p-0 text-slate-700 shadow-2xl dark:bg-slate-900 dark:text-slate-300"
+    >
+      <div
+        class="border-b border-slate-200 px-6 py-5 sm:px-8 dark:border-slate-800"
+      >
+        <div class="flex items-start justify-between gap-5">
+          <div>
+            <p
+              class="text-xs font-black uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400"
+            >
+              Project inquiry
+            </p>
+            <h2 class="mt-2 text-2xl font-black text-slate-950 dark:text-white">
+              Tell me about your project.
+            </h2>
+          </div>
+          <button
+            type="button"
+            data-close-order
+            class="grid size-9 shrink-0 place-items-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-950 dark:hover:bg-slate-800 dark:hover:text-white"
+            aria-label="Close inquiry form"
+          >
+            <svg
+              class="size-5"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path stroke-linecap="round" d="m6 6 12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <form id="order-form" class="space-y-5 px-6 py-6 sm:px-8 sm:py-8">
+        <div>
+          <label
+            for="name"
+            class="mb-2 block text-sm font-bold text-slate-800 dark:text-slate-200"
+            >Name</label
+          >
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            autocomplete="name"
+            placeholder="Your name"
+            class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+          />
+        </div>
+        <div>
+          <label
+            for="email"
+            class="mb-2 block text-sm font-bold text-slate-800 dark:text-slate-200"
+            >Email</label
+          >
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            autocomplete="email"
+            placeholder="you@example.com"
+            class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+          />
+        </div>
+        <div>
+          <label
+            for="message"
+            class="mb-2 block text-sm font-bold text-slate-800 dark:text-slate-200"
+            >Project details</label
+          >
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            required
+            placeholder="What would you like to build?"
+            class="w-full resize-none rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="w-full rounded-xl bg-brand-600 px-5 py-3.5 text-sm font-extrabold text-white transition hover:bg-brand-700 disabled:cursor-wait disabled:opacity-70 dark:hover:bg-brand-500"
+        >
+          Send inquiry
+        </button>
+        <p class="text-center text-xs text-slate-500">
+          Connect this form to your Django endpoint when integrating.
+        </p>
+      </form>
+    </dialog>
+
+    <script src="{% static 'assets/js/app.js' %}"></script>
+  </body>
+</html>

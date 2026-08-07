@@ -1,0 +1,699 @@
+{% load static %}{% load i18n %} {% get_current_language as LANGUAGE_CODE %}
+<!doctype html>
+<html
+  lang="{{ LANGUAGE_CODE }}"
+  dir="{% if LANGUAGE_CODE|slice:':2' == 'fa' %}rtl{% else %}ltr{% endif %}"
+  class="scroll-smooth"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="MetricFlow Dashboard project case study."
+    />
+    <title>MetricFlow Dashboard — Alex Morgan</title>
+    <script>
+      (() => {
+        let storedTheme = null;
+        try {
+          storedTheme = localStorage.getItem("theme");
+        } catch {}
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        if (storedTheme === "dark" || (!storedTheme && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+            },
+            colors: {
+              brand: {
+                50: "#eef7ff",
+                100: "#d9edff",
+                200: "#bce0ff",
+                300: "#8dccff",
+                400: "#38a2ff",
+                500: "#1688f8",
+                600: "#0870dc",
+                700: "#0959b2",
+                800: "#0d4b8d",
+                900: "#103f75",
+                950: "#0b284d",
+              },
+            },
+            boxShadow: {
+              soft: "0 18px 50px -24px rgba(15, 23, 42, 0.25)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      ::selection {
+        background: #1688f8;
+        color: white;
+      }
+
+      dialog::backdrop {
+        background: rgb(15 23 42 / 0.72);
+        backdrop-filter: blur(6px);
+      }
+
+      html[dir="rtl"] h1,
+      html[dir="rtl"] h2,
+      html[dir="rtl"] h3 {
+        letter-spacing: 0;
+      }
+
+      html[dir="rtl"] [data-directional-icon] {
+        transform: scaleX(-1);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-white font-sans text-slate-700 antialiased transition-colors duration-300 dark:bg-slate-950 dark:text-slate-300"
+  >
+    <header
+      class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/85"
+    >
+      <nav
+        class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8"
+        aria-label="Project navigation"
+      >
+        <a
+          href="index.html"
+          class="inline-flex items-center gap-2 text-sm font-extrabold text-slate-700 transition hover:text-brand-600 dark:text-slate-200 dark:hover:text-brand-400"
+        >
+          <svg
+            data-directional-icon
+            class="size-4"
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m15 18-6-6 6-6"
+            />
+          </svg>
+          {% translate "Back to portfolio" %}
+        </a>
+        <div class="flex items-center gap-3">
+          {% include "partials/language_switcher.html" %}
+          <button
+            type="button"
+            data-theme-toggle
+            class="grid size-10 place-items-center rounded-xl border border-slate-200 bg-white text-slate-600 transition hover:border-brand-200 hover:text-brand-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-brand-500/50 dark:hover:text-brand-400"
+            aria-label="Toggle color theme"
+          >
+            <svg
+              class="size-5 dark:hidden"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 3v1.5m0 15V21m9-9h-1.5M4.5 12H3m15.364-6.364-1.061 1.061M6.697 17.303l-1.061 1.061m12.728 0-1.061-1.061M6.697 6.697 5.636 5.636"
+              />
+              <circle cx="12" cy="12" r="4" />
+            </svg>
+            <svg
+              class="hidden size-5 dark:block"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M20.354 15.354A9 9 0 0 1 8.646 3.646a9.002 9.002 0 1 0 11.708 11.708Z"
+              />
+            </svg>
+          </button>
+          <button
+            type="button"
+            data-open-order
+            class="hidden rounded-xl bg-slate-950 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-brand-600 sm:inline-flex dark:bg-brand-600 dark:hover:bg-brand-500"
+          >
+            {% translate "Start Order" %}
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="relative isolate overflow-hidden pt-16 sm:pt-24">
+        <div
+          class="absolute inset-x-0 top-0 -z-10 h-96 bg-gradient-to-b from-brand-50 to-transparent dark:from-brand-500/10"
+        ></div>
+        <div class="mx-auto max-w-5xl px-5 text-center sm:px-8">
+          <div class="flex flex-wrap justify-center gap-2">
+            <span
+              class="rounded-full border border-brand-200 bg-white px-3 py-1 text-xs font-bold text-brand-700 dark:border-brand-500/20 dark:bg-brand-500/10 dark:text-brand-400"
+              >SaaS</span
+            >
+            <span
+              class="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-bold text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
+              >Django</span
+            >
+            <span
+              class="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-bold text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
+              >PostgreSQL</span
+            >
+          </div>
+          <h1
+            class="mx-auto mt-6 max-w-4xl text-4xl font-black tracking-[-0.04em] text-slate-950 sm:text-6xl dark:text-white"
+          >
+            MetricFlow Dashboard
+          </h1>
+          <p
+            class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300"
+          >
+            A multi-tenant reporting platform that turns fragmented operational
+            data into clear, actionable insights.
+          </p>
+          <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <a
+              href="#"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 py-3.5 text-sm font-extrabold text-white shadow-xl shadow-brand-600/20 transition hover:-translate-y-0.5 hover:bg-brand-700 dark:hover:bg-brand-500"
+            >
+              Live Demo
+              <svg
+                class="size-4"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13.5 6H18v4.5M18 6l-7.5 7.5M6 8.25v9.75h9.75"
+                />
+              </svg>
+            </a>
+            <button
+              type="button"
+              data-open-order
+              class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3.5 text-sm font-extrabold text-slate-800 transition hover:border-brand-300 hover:text-brand-700 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:hover:border-brand-500/50"
+            >
+              Start Order
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-6xl px-5 pb-20 pt-14 sm:px-8 sm:pt-20">
+        <div
+          class="relative aspect-[16/9] overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-cyan-100 via-sky-50 to-blue-200 shadow-soft sm:rounded-[2rem] dark:border-slate-800 dark:from-cyan-950 dark:via-slate-900 dark:to-blue-950"
+        >
+          <div
+            class="absolute inset-0 opacity-50"
+            style="
+              background-image: radial-gradient(
+                circle at 1px 1px,
+                rgb(100 116 139 / 0.25) 1px,
+                transparent 0
+              );
+              background-size: 24px 24px;
+            "
+          ></div>
+          <div
+            class="absolute inset-[6%] overflow-hidden rounded-xl border border-white/70 bg-white/85 shadow-2xl backdrop-blur sm:rounded-2xl dark:border-slate-700 dark:bg-slate-900/90"
+          >
+            <div
+              class="flex h-10 items-center gap-2 border-b border-slate-200 px-4 dark:border-slate-800"
+            >
+              <span class="size-2.5 rounded-full bg-rose-400"></span
+              ><span class="size-2.5 rounded-full bg-amber-400"></span
+              ><span class="size-2.5 rounded-full bg-emerald-400"></span>
+            </div>
+            <div class="grid h-[calc(100%-2.5rem)] grid-cols-[22%_1fr]">
+              <div
+                class="border-r border-slate-200 p-[8%] dark:border-slate-800"
+              >
+                <div class="h-4 w-2/3 rounded bg-brand-500"></div>
+                <div class="mt-8 space-y-3">
+                  <div
+                    class="h-2.5 rounded bg-slate-200 dark:bg-slate-700"
+                  ></div>
+                  <div
+                    class="h-2.5 rounded bg-slate-100 dark:bg-slate-800"
+                  ></div>
+                  <div
+                    class="h-2.5 rounded bg-slate-100 dark:bg-slate-800"
+                  ></div>
+                  <div
+                    class="h-2.5 rounded bg-slate-100 dark:bg-slate-800"
+                  ></div>
+                </div>
+              </div>
+              <div class="p-[4%]">
+                <div
+                  class="h-4 w-1/4 rounded bg-slate-800 dark:bg-slate-200"
+                ></div>
+                <div class="mt-[5%] grid grid-cols-3 gap-[3%]">
+                  <div
+                    class="aspect-[2/1] rounded-lg bg-brand-100 p-[8%] dark:bg-brand-500/15"
+                  >
+                    <div
+                      class="h-2 w-1/2 rounded bg-brand-300 dark:bg-brand-500/40"
+                    ></div>
+                  </div>
+                  <div
+                    class="aspect-[2/1] rounded-lg bg-violet-100 p-[8%] dark:bg-violet-500/15"
+                  >
+                    <div
+                      class="h-2 w-1/2 rounded bg-violet-300 dark:bg-violet-500/40"
+                    ></div>
+                  </div>
+                  <div
+                    class="aspect-[2/1] rounded-lg bg-emerald-100 p-[8%] dark:bg-emerald-500/15"
+                  >
+                    <div
+                      class="h-2 w-1/2 rounded bg-emerald-300 dark:bg-emerald-500/40"
+                    ></div>
+                  </div>
+                </div>
+                <div
+                  class="mt-[4%] flex h-[45%] items-end gap-[3%] rounded-lg bg-slate-50 px-[5%] pt-[5%] dark:bg-slate-800/60"
+                >
+                  <span
+                    class="h-[35%] flex-1 rounded-t bg-brand-200 dark:bg-brand-500/25"
+                  ></span
+                  ><span
+                    class="h-[65%] flex-1 rounded-t bg-brand-300 dark:bg-brand-500/35"
+                  ></span
+                  ><span
+                    class="h-[50%] flex-1 rounded-t bg-brand-200 dark:bg-brand-500/25"
+                  ></span
+                  ><span class="h-[85%] flex-1 rounded-t bg-brand-500"></span
+                  ><span
+                    class="h-[72%] flex-1 rounded-t bg-brand-300 dark:bg-brand-500/35"
+                  ></span
+                  ><span class="h-[95%] flex-1 rounded-t bg-brand-600"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span
+            class="absolute bottom-3 right-4 rounded-lg bg-white/80 px-3 py-1.5 text-xs font-bold text-slate-500 backdrop-blur dark:bg-slate-900/80 dark:text-slate-400"
+            >Project screenshot placeholder</span
+          >
+        </div>
+      </section>
+
+      <section
+        class="border-y border-slate-200 bg-slate-50 py-20 dark:border-slate-800 dark:bg-slate-900/40"
+      >
+        <div
+          class="mx-auto grid max-w-5xl gap-12 px-5 sm:px-8 lg:grid-cols-[1fr_16rem] lg:gap-20"
+        >
+          <article>
+            <p
+              class="text-sm font-black uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400"
+            >
+              Project overview
+            </p>
+            <h2
+              class="mt-3 text-3xl font-black tracking-tight text-slate-950 dark:text-white"
+            >
+              From scattered reports to one source of truth.
+            </h2>
+            <div
+              class="mt-6 space-y-5 text-base leading-8 text-slate-600 dark:text-slate-300"
+            >
+              <p>
+                MetricFlow was designed for a growing operations team that had
+                outgrown spreadsheets and disconnected reporting tools. The
+                product centralizes critical metrics while giving every client a
+                secure, isolated workspace.
+              </p>
+              <p>
+                The backend uses Django and Django REST Framework to provide
+                reliable data ingestion, granular permissions, and versioned API
+                endpoints. Background workers process imports and scheduled
+                reports without interrupting the user experience.
+              </p>
+              <p>
+                The result is a faster reporting workflow, consistent business
+                definitions, and a product foundation that can support new data
+                sources as the company expands.
+              </p>
+            </div>
+
+            <h3 class="mt-12 text-xl font-black text-slate-950 dark:text-white">
+              Key outcomes
+            </h3>
+            <ul class="mt-5 grid gap-4 sm:grid-cols-2">
+              <li
+                class="flex gap-3 rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900"
+              >
+                <span
+                  class="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                  ><svg
+                    class="size-3.5"
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m5 12 4 4L19 6"
+                    /></svg
+                ></span>
+                <span
+                  class="text-sm font-semibold leading-6 text-slate-700 dark:text-slate-300"
+                  >Reduced manual reporting time by 70%</span
+                >
+              </li>
+              <li
+                class="flex gap-3 rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900"
+              >
+                <span
+                  class="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                  ><svg
+                    class="size-3.5"
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m5 12 4 4L19 6"
+                    /></svg
+                ></span>
+                <span
+                  class="text-sm font-semibold leading-6 text-slate-700 dark:text-slate-300"
+                  >Secure tenant-level data isolation</span
+                >
+              </li>
+              <li
+                class="flex gap-3 rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900"
+              >
+                <span
+                  class="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                  ><svg
+                    class="size-3.5"
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m5 12 4 4L19 6"
+                    /></svg
+                ></span>
+                <span
+                  class="text-sm font-semibold leading-6 text-slate-700 dark:text-slate-300"
+                  >Automated scheduled PDF and CSV exports</span
+                >
+              </li>
+              <li
+                class="flex gap-3 rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900"
+              >
+                <span
+                  class="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                  ><svg
+                    class="size-3.5"
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m5 12 4 4L19 6"
+                    /></svg
+                ></span>
+                <span
+                  class="text-sm font-semibold leading-6 text-slate-700 dark:text-slate-300"
+                  >Documented API ready for integrations</span
+                >
+              </li>
+            </ul>
+          </article>
+
+          <aside>
+            <dl
+              class="space-y-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900"
+            >
+              <div>
+                <dt
+                  class="text-xs font-black uppercase tracking-wider text-slate-500"
+                >
+                  Role
+                </dt>
+                <dd
+                  class="mt-1.5 text-sm font-bold text-slate-950 dark:text-white"
+                >
+                  Lead Backend Developer
+                </dd>
+              </div>
+              <div>
+                <dt
+                  class="text-xs font-black uppercase tracking-wider text-slate-500"
+                >
+                  Timeline
+                </dt>
+                <dd
+                  class="mt-1.5 text-sm font-bold text-slate-950 dark:text-white"
+                >
+                  12 weeks
+                </dd>
+              </div>
+              <div>
+                <dt
+                  class="text-xs font-black uppercase tracking-wider text-slate-500"
+                >
+                  Services
+                </dt>
+                <dd
+                  class="mt-1.5 text-sm font-bold leading-6 text-slate-950 dark:text-white"
+                >
+                  Architecture, API, DevOps
+                </dd>
+              </div>
+              <div>
+                <dt
+                  class="text-xs font-black uppercase tracking-wider text-slate-500"
+                >
+                  Stack
+                </dt>
+                <dd class="mt-2 flex flex-wrap gap-2">
+                  <span
+                    class="rounded-md bg-slate-100 px-2 py-1 text-xs font-bold dark:bg-slate-800"
+                    >Django</span
+                  >
+                  <span
+                    class="rounded-md bg-slate-100 px-2 py-1 text-xs font-bold dark:bg-slate-800"
+                    >DRF</span
+                  >
+                  <span
+                    class="rounded-md bg-slate-100 px-2 py-1 text-xs font-bold dark:bg-slate-800"
+                    >Celery</span
+                  >
+                  <span
+                    class="rounded-md bg-slate-100 px-2 py-1 text-xs font-bold dark:bg-slate-800"
+                    >Docker</span
+                  >
+                </dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+      </section>
+
+      <section class="py-20 sm:py-28">
+        <div class="mx-auto max-w-5xl px-5 sm:px-8">
+          <div
+            class="relative isolate overflow-hidden rounded-[2rem] bg-slate-950 px-6 py-14 text-center sm:px-12 sm:py-16 dark:border dark:border-slate-800"
+          >
+            <div
+              class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,_rgba(22,136,248,0.35),_transparent_40%)]"
+            ></div>
+            <p
+              class="text-sm font-black uppercase tracking-[0.18em] text-brand-400"
+            >
+              Your project could be next
+            </p>
+            <h2
+              class="mx-auto mt-4 max-w-2xl text-3xl font-black tracking-tight text-white sm:text-4xl"
+            >
+              Need a dependable partner for your next build?
+            </h2>
+            <p class="mx-auto mt-4 max-w-xl text-base leading-7 text-slate-300">
+              Share the goal, constraints, and timeline. I’ll help you shape a
+              practical path forward.
+            </p>
+            <button
+              type="button"
+              data-open-order
+              class="mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-7 py-4 text-sm font-extrabold text-white shadow-xl shadow-brand-500/20 transition hover:-translate-y-0.5 hover:bg-brand-400"
+            >
+              Start Order
+              <svg
+                data-directional-icon
+                class="size-4"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M5 12h14m-6-6 6 6-6 6"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-slate-200 py-8 dark:border-slate-800">
+      <div
+        class="mx-auto flex max-w-6xl flex-col gap-4 px-5 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-8"
+      >
+        <p>© 2026 Alex Morgan. Built with care.</p>
+        <a
+          href="projects.html"
+          class="font-semibold transition hover:text-brand-600 dark:hover:text-brand-400"
+          >Browse all projects</a
+        >
+      </div>
+    </footer>
+
+    <dialog
+      id="order-dialog"
+      class="m-auto w-[calc(100%-2rem)] max-w-xl rounded-3xl bg-white p-0 text-slate-700 shadow-2xl dark:bg-slate-900 dark:text-slate-300"
+    >
+      <div
+        class="border-b border-slate-200 px-6 py-5 sm:px-8 dark:border-slate-800"
+      >
+        <div class="flex items-start justify-between gap-5">
+          <div>
+            <p
+              class="text-xs font-black uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400"
+            >
+              Project inquiry
+            </p>
+            <h2 class="mt-2 text-2xl font-black text-slate-950 dark:text-white">
+              Let’s discuss your project.
+            </h2>
+          </div>
+          <button
+            type="button"
+            data-close-order
+            class="grid size-9 shrink-0 place-items-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-950 dark:hover:bg-slate-800 dark:hover:text-white"
+            aria-label="Close inquiry form"
+          >
+            <svg
+              class="size-5"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path stroke-linecap="round" d="m6 6 12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <form id="order-form" class="space-y-5 px-6 py-6 sm:px-8 sm:py-8">
+        <div>
+          <label
+            for="name"
+            class="mb-2 block text-sm font-bold text-slate-800 dark:text-slate-200"
+            >Name</label
+          >
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            autocomplete="name"
+            placeholder="Your name"
+            class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+          />
+        </div>
+        <div>
+          <label
+            for="email"
+            class="mb-2 block text-sm font-bold text-slate-800 dark:text-slate-200"
+            >Email</label
+          >
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            autocomplete="email"
+            placeholder="you@example.com"
+            class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+          />
+        </div>
+        <div>
+          <label
+            for="message"
+            class="mb-2 block text-sm font-bold text-slate-800 dark:text-slate-200"
+            >Project details</label
+          >
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            required
+            placeholder="What would you like to build?"
+            class="w-full resize-none rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="w-full rounded-xl bg-brand-600 px-5 py-3.5 text-sm font-extrabold text-white transition hover:bg-brand-700 disabled:cursor-wait disabled:opacity-70 dark:hover:bg-brand-500"
+        >
+          Send inquiry
+        </button>
+        <p class="text-center text-xs text-slate-500">
+          Connect this form to your Django endpoint when integrating.
+        </p>
+      </form>
+    </dialog>
+
+    <script src="{% static 'assets/js/app.js' %}"></script>
+  </body>
+</html>
