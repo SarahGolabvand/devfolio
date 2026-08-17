@@ -1,0 +1,188 @@
+{% load static %}{% load i18n %}
+<section id="about" class="relative isolate overflow-hidden">
+  <div
+    class="absolute inset-x-0 top-0 -z-10 h-[32rem] bg-gradient-to-b from-brand-50 to-transparent dark:from-brand-500/10"
+  ></div>
+
+  <div
+    class="absolute -right-24 top-20 -z-10 size-72 rounded-full bg-brand-400/10 blur-3xl"
+  ></div>
+  <div
+    class="mx-auto grid min-h-[calc(100vh-73px)] max-w-7xl items-center gap-14 px-5 py-20 sm:px-8 lg:grid-cols-[1.1fr_.9fr] lg:px-10"
+  >
+    <div>
+      <div
+        class="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white/70 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-brand-700 shadow-sm dark:border-brand-500/20 dark:bg-brand-500/10 dark:text-brand-400"
+      >
+        <span class="size-2 rounded-full bg-emerald-500"></span>
+        Available for selected projects
+      </div>
+      <p class="mb-4 text-lg font-bold text-brand-600 dark:text-brand-400">
+        Hello, I’m {{profile.first_name}}.
+      </p>
+      <h1
+        class="max-w-3xl text-5xl font-black leading-[1.05] tracking-[-0.045em] text-slate-950 sm:text-6xl lg:text-7xl dark:text-white"
+      >
+        {% trans "I build backend systems that" %}
+        <span class="text-brand-600 dark:text-brand-400"
+          >{% trans 'scale with confidence.'%}</span
+        >
+      </h1>
+      <p
+        class="mt-7 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300"
+      >
+        {{ profile.bio}}
+      </p>
+      <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+        <a
+          href="#projects"
+          class="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-6 py-3.5 text-sm font-bold text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-brand-600 dark:bg-brand-600 dark:hover:bg-brand-500"
+        >
+          Explore my work
+          <svg
+            data-directional-icon
+            class="size-4"
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m9 18 6-6-6-6"
+            />
+          </svg>
+        </a>
+        <button
+          type="button"
+          data-open-order
+          class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3.5 text-sm font-bold text-slate-800 transition hover:border-brand-300 hover:text-brand-700 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:hover:border-brand-500/50"
+        >
+          Start a conversation
+        </button>
+      </div>
+      <dl
+        class="mt-12 grid max-w-xl grid-cols-3 gap-6 border-t border-slate-200 pt-8 dark:border-slate-800"
+      >
+        <div>
+          <dt class="text-xs font-bold uppercase tracking-wider text-slate-500">
+            Experience
+          </dt>
+          <dd class="mt-1 text-2xl font-black text-slate-950 dark:text-white">
+            6+ yrs
+          </dd>
+        </div>
+        <div>
+          <dt class="text-xs font-bold uppercase tracking-wider text-slate-500">
+            Projects
+          </dt>
+          <dd class="mt-1 text-2xl font-black text-slate-950 dark:text-white">
+            40+
+          </dd>
+        </div>
+        <div>
+          <dt class="text-xs font-bold uppercase tracking-wider text-slate-500">
+            Timezone
+          </dt>
+          <dd class="mt-1 text-2xl font-black text-slate-950 dark:text-white">
+            UTC+3:30
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="relative mx-auto w-full max-w-lg lg:justify-self-end">
+      <div
+        class="absolute -inset-5 -z-10 rotate-3 rounded-[2.5rem] bg-brand-500/10"
+      ></div>
+      <div
+        class="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/60 bg-gradient-to-br from-slate-100 via-slate-200 to-brand-100 shadow-soft dark:border-slate-700 dark:from-slate-900 dark:via-slate-800 dark:to-brand-950"
+      >
+        <div
+          class="absolute inset-0 opacity-50"
+          style="
+            background-image: radial-gradient(
+              circle at 1px 1px,
+              rgb(100 116 139 / 0.3) 1px,
+              transparent 0
+            );
+            background-size: 24px 24px;
+          "
+        ></div>
+        <div class="absolute inset-0 grid place-items-center">
+          <div
+            class="relative size-75 overflow-hidden rounded-3xl border-4 border-white shadow-2xl dark:border-slate-800"
+          >
+            <img
+              src="{% static 'avatars/sarahglbvnd.png' %}"
+              alt="{{profile.fullname}}"
+              class="h-full w-full object-cover"
+            />
+          </div>
+          <!--<div class="text-center">
+            <div
+              class="mx-auto grid size-28 place-items-center rounded-3xl border border-white/70 bg-white/70 text-brand-600 shadow-xl backdrop-blur dark:border-slate-600 dark:bg-slate-900/70 dark:text-brand-400"
+            >
+              <svg
+                class="size-12"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.118a7.5 7.5 0 0 1 15 0A17.9 17.9 0 0 1 12 21.75a17.9 17.9 0 0 1-7.5-1.632Z"
+                />
+              </svg>
+            </div>
+            <p
+              class="mt-5 text-sm font-bold text-slate-600 dark:text-slate-300"
+            >
+              Your professional portrait
+            </p>
+            <!--<p class="mt-1 text-xs text-slate-500">
+              Recommended: 1200 × 1500 px
+            </p>
+          </div>-->
+        </div>
+        {% comment %} <div
+          class="absolute bottom-5 left-5 right-5 rounded-2xl border border-white/60 bg-white/80 p-4 backdrop-blur-md dark:border-slate-600 dark:bg-slate-900/80"
+        >
+          <div class="flex items-center gap-3">
+            <span
+              class="grid size-10 place-items-center rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+            >
+              <svg
+                class="size-5"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m5 12 4 4L19 6"
+                />
+              </svg>
+            </span>
+            <div>
+              <p class="text-sm font-extrabold text-slate-950 dark:text-white">
+                Clean, tested, documented
+              </p>
+              <p class="text-xs text-slate-500 dark:text-slate-400">
+                Built for long-term maintainability
+              </p>
+            </div>
+          </div>
+        </div> {% endcomment %}
+      </div>
+    </div>
+  </div>
+</section>

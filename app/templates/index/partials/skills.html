@@ -1,0 +1,41 @@
+<section
+  id="skills"
+  class="border-y border-slate-200 bg-slate-50 py-24 dark:border-slate-800 dark:bg-slate-900/40"
+>
+  <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+    <div class="max-w-2xl">
+      <p
+        class="text-sm font-black uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400"
+      >
+        Core expertise
+      </p>
+      <h2
+        class="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl dark:text-white"
+      >
+        A focused toolkit for robust products.
+      </h2>
+      <p class="mt-4 text-base leading-7 text-slate-600 dark:text-slate-400">
+        The right technology, applied with practical engineering judgment.
+      </p>
+    </div>
+    <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <!-- ==================================================================================================> LOOP SKILLS-->
+      {% for skill in skills%}
+      <article
+        class="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-brand-300 hover:shadow-soft dark:border-slate-800 dark:bg-slate-900 dark:hover:border-brand-500/40"
+      >
+        <span class="{{ skill.get_color_classes}}">{{skill.abbreviation}}</span>
+
+        <h3 class="mt-5 font-extrabold text-slate-950 dark:text-white">
+          {{skill.title}}
+        </h3>
+        <p class="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
+          {{skill.description}}
+        </p>
+      </article>
+      {% empty %}
+      <p>No skills available.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
