@@ -1,0 +1,65 @@
+<section
+    class="relative isolate overflow-hidden border-b border-slate-200 bg-slate-50 py-20 sm:py-24 dark:border-slate-800 dark:bg-slate-900/40"
+  >
+    <div
+      class="absolute inset-x-0 top-0 -z-10 h-80 bg-gradient-to-b from-brand-100/70 to-transparent dark:from-brand-500/10"
+    ></div>
+    <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+      <nav
+        aria-label="Breadcrumb"
+        class="flex items-center gap-2 text-sm font-semibold text-slate-500"
+      >
+        <a
+          href="{% url 'core:index' %}"
+          class="transition hover:text-brand-600 dark:hover:text-brand-400"
+          >Home</a
+        >
+        <svg
+          data-directional-icon
+          class="size-4"
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m9 18 6-6-6-6"
+          />
+        </svg>
+        <span class="text-slate-900 dark:text-white">Projects</span>
+      </nav>
+      <div class="mt-10 grid items-end gap-8 lg:grid-cols-[1fr_auto]">
+        <div class="max-w-3xl">
+          <p
+            class="text-sm font-black uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400"
+          >
+            Project archive
+          </p>
+          <h1
+            class="mt-4 text-4xl font-black tracking-[-0.04em] text-slate-950 sm:text-6xl dark:text-white"
+          >
+            Solutions built for meaningful work.
+          </h1>
+          <p
+            class="mt-6 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300"
+          >
+            Explore selected SaaS platforms, APIs, internal tools, and
+            automation systems designed around real business needs.
+          </p>
+        </div>
+        <div
+          class="rounded-2xl border border-slate-200 bg-white px-6 py-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"
+        >
+          <p class="text-xs font-black uppercase tracking-wider text-slate-500">
+            Showing
+          </p>
+          <p class="mt-1 text-3xl font-black text-slate-950 dark:text-white">
+            <span data-project-count>6</span> projects
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>

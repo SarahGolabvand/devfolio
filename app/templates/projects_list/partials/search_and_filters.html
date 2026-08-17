@@ -1,0 +1,66 @@
+<div
+        class="flex flex-col gap-5 border-b border-slate-200 pb-8 lg:flex-row lg:items-center lg:justify-between dark:border-slate-800"
+      >
+        <div class="flex flex-wrap gap-2" aria-label="Filter projects">
+          <button
+            type="button"
+            data-project-filter="all"
+            aria-pressed="true"
+            class="rounded-xl border border-slate-200 !bg-slate-950 px-4 py-2.5 text-sm font-bold !text-white transition hover:border-brand-300 dark:border-slate-700 dark:!bg-white dark:!text-slate-950"
+          >
+            All
+          </button>
+          <button
+            type="button"
+            data-project-filter="saas"
+            aria-pressed="false"
+            class="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-600 transition hover:border-brand-300 hover:text-brand-600 dark:border-slate-700 dark:text-slate-300 dark:hover:border-brand-500/50 dark:hover:text-brand-400"
+          >
+            SaaS
+          </button>
+          <button
+            type="button"
+            data-project-filter="api"
+            aria-pressed="false"
+            class="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-600 transition hover:border-brand-300 hover:text-brand-600 dark:border-slate-700 dark:text-slate-300 dark:hover:border-brand-500/50 dark:hover:text-brand-400"
+          >
+            API
+          </button>
+          <button
+            type="button"
+            data-project-filter="automation"
+            aria-pressed="false"
+            class="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-600 transition hover:border-brand-300 hover:text-brand-600 dark:border-slate-700 dark:text-slate-300 dark:hover:border-brand-500/50 dark:hover:text-brand-400"
+          >
+            Automation
+          </button>
+          <button
+            type="button"
+            data-project-filter="commerce"
+            aria-pressed="false"
+            class="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-600 transition hover:border-brand-300 hover:text-brand-600 dark:border-slate-700 dark:text-slate-300 dark:hover:border-brand-500/50 dark:hover:text-brand-400"
+          >
+            Commerce
+          </button>
+        </div>
+        <label data-search-field class="relative block w-full lg:w-80">
+          <span class="sr-only">Search projects</span>
+          <svg
+            class="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-slate-400"
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path stroke-linecap="round" d="m20 20-4-4" />
+          </svg>
+          <input
+            type="search"
+            data-project-search
+            placeholder="Search projects..."
+            class="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+          />
+        </label>
+      </div>

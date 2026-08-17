@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block content %}
+
+<main>
+  <!--================================================================================================> START Breadcrumb-->
+  {% include 'projects_list/partials/breadcrumb.html' %}
+  <!--=============================================================> END Breadcrumb-->
+  <!---->
+  <!--==================================================================================================> START Content-->
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+      <!--==============================================================================================> START SEARCH-FILTER-->
+      {% include 'projects_list/partials/search_and_filters.html' %}
+      <!--=========================================================> END SEARCH-FILTER--->
+      <!---->
+      <!--==============================================================================================> START Listing Projects-->
+      <!-- Future integration: replace these cards with a Django template loop or fetch the full project collection from your API. -->
+      {% include 'projects_list/partials/list_projects.html' %}
+  <!--=========================================================> END Listed projects--->
+    </section>
+ 
+  <!--=========================================================================================> Start Order Form--->
+</main>
+{% endblock content %}
