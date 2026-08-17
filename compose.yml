@@ -14,3 +14,5 @@ services:
       - SECRET_KEY=django-insecure-6rw9ob1ibj^t&d_2tj02h@l#u-^q+3wscb8_@#p!_164mhnv=-
       - DEBUG=True
       - ALLOWED_HOSTS=127.0.0.1,localhost
+      - EMAIL_HOST_USER=glbvnd@gmail.com 
+      - EMAIL_HOST_PASSWORD=SarGol#2001 
