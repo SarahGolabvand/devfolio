@@ -1,0 +1,49 @@
+<section id="contact" class="pb-24 pt-6">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+    <div
+      class="relative isolate overflow-hidden rounded-[2rem] bg-slate-950 px-6 py-14 text-center shadow-2xl sm:px-12 sm:py-20 dark:border dark:border-slate-800"
+    >
+      <div
+        class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,_rgba(22,136,248,0.35),_transparent_35%)]"
+      ></div>
+      <p class="text-sm font-black uppercase tracking-[0.18em] text-brand-400">
+        Let’s build something useful
+      </p>
+      <h2
+        class="mx-auto mt-4 max-w-3xl text-3xl font-black tracking-tight text-white sm:text-5xl"
+      >
+        Looking for a partner in crime for your next experiment?
+      </h2>
+      <p class="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-300">
+        If you have a weird idea or a big “what if,” I’d love to hear about it.
+      </p>
+      <button
+        type="button"
+        onclick="document.getElementById('contact-dialog').showModal()"
+        
+        data-open-order
+        class="mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-7 py-4 text-sm font-extrabold text-white shadow-xl shadow-brand-500/20 transition hover:-translate-y-0.5 hover:bg-brand-400"
+      >
+        Let’s Connect
+        <svg
+          data-directional-icon
+          class="size-4"
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M5 12h14m-6-6 6 6-6 6"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+<!-- =========================================================== START Order Form-->
+{% include 'contact/contact_form.html' %}
+<!-- =========================================================== END Order Form-->
