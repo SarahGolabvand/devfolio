@@ -1,4 +1,4 @@
-{% load static %}{% load i18n %} {% get_current_language as LANGUAGE_CODE %}
+{% load static %}{% load i18n %}{% get_current_language as LANGUAGE_CODE %}{% csrf_token %}
 <!doctype html>
 <html
   lang="{{ LANGUAGE_CODE }}"
