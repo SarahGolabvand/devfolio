@@ -3,9 +3,10 @@ from django.utils.html import format_html
 from .models import (Project,
                      Tag,
 
-                     ProjectScreenshots,
-                     ProjectKeyOutcome,
-                     ProjectStackItem)
+                     Screenshots,
+                     KeyOutcome,
+                     StackItem,
+                     Services)
 
 # Register your models here.
 # =====================================================>>> new method >>> Inline
@@ -13,7 +14,7 @@ from .models import (Project,
 
 
 class ScreenshotInline(admin.TabularInline):
-    model = ProjectScreenshots
+    model = Screenshots
     extra = 1
     fields = ('image_preview', 'image', 'alt_text',
               'is_primary', 'display_order')
@@ -37,15 +38,22 @@ class TagInline(admin.TabularInline):
     ordering = ('display_order',)
 
 
+class ServicesInline(admin.TabularInline):
+    model = Services
+    extra = 1
+    fields = ('title',)
+    
+
+
 class KeyOutcomeInline(admin.TabularInline):
-    model = ProjectKeyOutcome
+    model = KeyOutcome
     extra = 1
     fields = ('key_outcomes', 'display_order')
     ordering = ('display_order',)
 
 
 class StackItemInline(admin.TabularInline):
-    model = ProjectStackItem
+    model = StackItem
     extra = 1
     fields = ('name', 'display_order',)
     ordering = ('display_order',)
@@ -65,7 +73,8 @@ class ProjectAdmin(admin.ModelAdmin):
         TagInline,
         ScreenshotInline,
         StackItemInline,
-        KeyOutcomeInline
+        KeyOutcomeInline,
+        ServicesInline
     ]
 
     fieldsets = (

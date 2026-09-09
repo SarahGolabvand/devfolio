@@ -3,6 +3,8 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
+
+
 class Project(models.Model):
 
     slug = models.SlugField(_('slug'), max_length=255, unique=True, blank=True)
@@ -39,10 +41,11 @@ class Project(models.Model):
         return self.name
 
 
-class ProjectScreenshots(models.Model):
+class Screenshots(models.Model):
     class Meta:
         ordering = ['display_order', 'id']
         db_table = 'projects_screenshots'
+
     project = models.ForeignKey("Project", verbose_name=_(
         "project"), on_delete=models.CASCADE, related_name='screenshots')
     image = models.ImageField(_("screenshot"), upload_to='projects/screenshots/',
@@ -52,39 +55,30 @@ class ProjectScreenshots(models.Model):
     is_primary = models.BooleanField(_("is primary"))
     display_order = models.PositiveIntegerField(_("display order"), default=0)
 
-    project_name = ''
-
-    @property
-    def get_project_name(self):
-        self.project_name = self.project.name
-
     def __str__(self):
-        return f'{self.project.name} screenshot'
+        return f'{self.alt_text} screenshot'
 
 
-class ProjectKeyOutcome(models.Model):
+class KeyOutcome(models.Model):
     class Meta:
         ordering = ['display_order', 'id']
         db_table = 'projects_key_outcomes'
+
     project = models.ForeignKey("Project", verbose_name=_(
         "project's tags"), on_delete=models.CASCADE, related_name='key_outcomes')
 
     key_outcomes = models.CharField(_("key_outcomes"), max_length=250)
     display_order = models.PositiveIntegerField(default=0)
 
-    project_name = ''
-
-    @property
-    def get_project_name(self):
-        self.project_name = self.project.name
-
     def __str__(self):
-        return f"{self.project.name}'s key outcomes"
+        return self.key_outcomes
 
-class ProjectStackItem(models.Model):
+
+class StackItem(models.Model):
     class Meta:
         ordering = ['display_order', 'id']
         db_table = 'project_stack_items'
+
     project = models.ForeignKey("Project", verbose_name=_(
         "project's stacks"), on_delete=models.CASCADE, related_name='stack_items')
     name = models.CharField(max_length=50)
@@ -93,7 +87,9 @@ class ProjectStackItem(models.Model):
     def __str__(self):
         return self.name
 
+
 class Tag(models.Model):
+
     project = models.ForeignKey(
         'Project', related_name='tags', on_delete=models.CASCADE)
     name = models.CharField(_("tag's name"), max_length=50)
@@ -104,3 +100,15 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Services(models.Model):
+    class Meta:
+        db_table = 'projects_services'
+
+    project = models.ForeignKey("Project", verbose_name=_("project's services"), on_delete=models.CASCADE,
+                                related_name='services')
+    title = models.CharField(_("title"), max_length=70)
+
+    def __str__(self):
+        return self.title
