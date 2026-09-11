@@ -130,9 +130,11 @@ if (projectCards.length) {
     let visibleCount = 0;
 
     projectCards.forEach((card) => {
-      const categories = card.dataset.categories?.split(" ") ?? [];
+      const categories = card.dataset.categories?.split(" ").filter(t => t !== "") ?? [];
       const searchableText = card.textContent.toLowerCase();
+      const targetFilter = activeFilter.toLowerCase();
       const matchesFilter =
+      targetFilter === "all" || categories.includes(targetFilter);
         activeFilter === "all" || categories.includes(activeFilter);
       const matchesSearch = !query || searchableText.includes(query);
       const isVisible = matchesFilter && matchesSearch;

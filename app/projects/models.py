@@ -9,7 +9,7 @@ class Project(models.Model):
 
     slug = models.SlugField(_('slug'), max_length=255, unique=True, blank=True)
     thumbnail = models.ImageField(_("thumbnail"),
-                                  upload_to='project/thumbnails', null=True, blank=True)
+                                  upload_to='projects/thumbnails', null=True, blank=True)
     name = models.CharField(_("project's name"), max_length=100)
     short_description = models.CharField(_("short description"),
                                          max_length=250)
@@ -23,14 +23,18 @@ class Project(models.Model):
     display_order = models.PositiveIntegerField(_("display order"), default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    tags = models.ManyToManyField(
+        'Tag', blank=True, related_name="projects", verbose_name="Tags")
+    services = models.ManyToManyField(
+        'Service', blank=True, related_name="projects", verbose_name="services")
 
     class Meta:
         ordering = ['display_order', '-created_at']
         db_table = 'projects'
 
-    @property
-    def paragraphs(self):
-        return self.article.split("\n\n")
+    # @property
+    # def paragraphs(self):
+    #     return [p.strip() for p in self.article.splitlines() if p.strip()]
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -43,7 +47,7 @@ class Project(models.Model):
 
 class Screenshots(models.Model):
     class Meta:
-        ordering = ['display_order', 'id']
+        ordering = ['-is_primary', 'display_order', 'id']
         db_table = 'projects_screenshots'
 
     project = models.ForeignKey("Project", verbose_name=_(
@@ -76,7 +80,6 @@ class KeyOutcome(models.Model):
 
 class StackItem(models.Model):
     class Meta:
-        ordering = ['display_order', 'id']
         db_table = 'project_stack_items'
 
     project = models.ForeignKey("Project", verbose_name=_(
@@ -90,8 +93,6 @@ class StackItem(models.Model):
 
 class Tag(models.Model):
 
-    project = models.ForeignKey(
-        'Project', related_name='tags', on_delete=models.CASCADE)
     name = models.CharField(_("tag's name"), max_length=50)
     display_order = models.PositiveIntegerField(default=0)
 
@@ -102,12 +103,10 @@ class Tag(models.Model):
         return self.name
 
 
-class Services(models.Model):
+class Service(models.Model):
     class Meta:
-        db_table = 'projects_services'
+        db_table = 'projects_service'
 
-    project = models.ForeignKey("Project", verbose_name=_("project's services"), on_delete=models.CASCADE,
-                                related_name='services')
     title = models.CharField(_("title"), max_length=70)
 
     def __str__(self):

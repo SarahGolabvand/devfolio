@@ -2,11 +2,10 @@ from django.contrib import admin
 from django.utils.html import format_html
 from .models import (Project,
                      Tag,
-
                      Screenshots,
                      KeyOutcome,
                      StackItem,
-                     Services)
+                     Service)
 
 # Register your models here.
 # =====================================================>>> new method >>> Inline
@@ -31,18 +30,6 @@ class ScreenshotInline(admin.TabularInline):
     image_preview.short_description = 'preview'
 
 
-class TagInline(admin.TabularInline):
-    model = Tag
-    extra = 1
-    fields = ('name', 'display_order')
-    ordering = ('display_order',)
-
-
-class ServicesInline(admin.TabularInline):
-    model = Services
-    extra = 1
-    fields = ('title',)
-    
 
 
 class KeyOutcomeInline(admin.TabularInline):
@@ -70,11 +57,11 @@ class ProjectAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at', 'updated_at')
 
     inlines = [
-        TagInline,
+        
         ScreenshotInline,
         StackItemInline,
         KeyOutcomeInline,
-        ServicesInline
+        
     ]
 
     fieldsets = (
@@ -83,9 +70,11 @@ class ProjectAdmin(admin.ModelAdmin):
              'fields':
                  (
                      'name',
+                     'tags',
                      'slug',
                      'thumbnail',
                      'short_description',
+                     'services',
                      'is_published',
                      'display_order',
                  )
@@ -134,6 +123,19 @@ class ProjectAdmin(admin.ModelAdmin):
 
         thumbnail_preview.short_description = 'thumbnail'
 
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
+    
+
+
+@admin.register(Service)
+class ServiceAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+    search_fields = ('title',)
+    
 # ===================================================>>>> old method
 # @admin.register(Project)
 # class ProjectAdmin(admin.ModelAdmin):
