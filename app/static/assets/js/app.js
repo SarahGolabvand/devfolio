@@ -121,7 +121,6 @@ orderForm?.addEventListener("submit", (event) => {
     submitButton.disabled = false;
   }, 900);
 });
-
 if (projectCards.length) {
   let activeFilter = "all";
 
@@ -130,12 +129,20 @@ if (projectCards.length) {
     let visibleCount = 0;
 
     projectCards.forEach((card) => {
-      const categories = card.dataset.categories?.split(" ").filter(t => t !== "") ?? [];
+      // نرمال‌سازی تگ‌ها به حروف کوچک و حذف فاصله‌ها
+      const rawCategories = card.dataset.categories ?? "";
+      const categories = rawCategories
+        .toLowerCase()
+        .split(" ")
+        .map((t) => t.trim())
+        .filter((t) => t !== "");
+
       const searchableText = card.textContent.toLowerCase();
-      const targetFilter = activeFilter.toLowerCase();
+      const targetFilter = (activeFilter || "all").toLowerCase().trim();
+
       const matchesFilter =
-      targetFilter === "all" || categories.includes(targetFilter);
-        activeFilter === "all" || categories.includes(activeFilter);
+        targetFilter === "all" || categories.includes(targetFilter);
+
       const matchesSearch = !query || searchableText.includes(query);
       const isVisible = matchesFilter && matchesSearch;
 
@@ -152,7 +159,8 @@ if (projectCards.length) {
 
   projectFilters.forEach((button) => {
     button.addEventListener("click", () => {
-      activeFilter = button.dataset.projectFilter;
+      // دریافت فیلتر و فال‌بک به all در صورت نبود مقدار
+      activeFilter = button.dataset.projectFilter || "all";
 
       projectFilters.forEach((filterButton) => {
         const isActive = filterButton === button;
