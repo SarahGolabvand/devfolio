@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 # Register your models here.
 from .models import User, ProfileModel, SkillsModel
 
-
+@admin.register(User)
 class UserAdmin(BaseUserAdmin):
     # the fields to be used in dispalying in User model
     # these override the definitions on the base UserAdmin
@@ -33,9 +33,7 @@ class UserAdmin(BaseUserAdmin):
     )
 
 
-admin.site.register(User, UserAdmin)
-
-
+@admin.register(ProfileModel)
 class ProfileAdmin(admin.ModelAdmin):
 
     list_display = ('user', 'first_name', 'last_name',
@@ -44,9 +42,7 @@ class ProfileAdmin(admin.ModelAdmin):
     search_fields = ('last_name', 'user')
 
 
-admin.site.register(ProfileModel, ProfileAdmin)
-
-
+@admin.register(SkillsModel)
 class SkillsAdmin(admin.ModelAdmin):
     list_display = ('title', 'color_theme', 'order', 'is_visible')
 
@@ -54,5 +50,3 @@ class SkillsAdmin(admin.ModelAdmin):
     search_fields = ('title', 'abbreviation', 'description')
     ordering = ('order', 'title')
 
-
-admin.site.register(SkillsModel, SkillsAdmin)

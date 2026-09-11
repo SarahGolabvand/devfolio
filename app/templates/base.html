@@ -1,4 +1,5 @@
-{% load static %}{% load i18n %} {% get_current_language as LANGUAGE_CODE %}
+{% load static %}{% load i18n %}{% get_current_language as LANGUAGE_CODE %}
+{%csrf_token %}
 <!doctype html>
 <html
   lang="{{ LANGUAGE_CODE }}"
@@ -12,7 +13,7 @@
       name="description"
       content="A modern portfolio for a backend developer specializing in Django, APIs, and scalable web products."
     />
-    <title>Sarah Golabvand- Backend developer</title>
+    <title>{{profile.fullname}}</title>
     <script>
       (() => {
         let storedTheme = null;
@@ -99,13 +100,23 @@
           aria-label="{{profile.fullname}}"
         >
           <span
-            class="grid size-10 place-items-center rounded-xl bg-brand-600 text-sm font-black text-white shadow-lg shadow-brand-600/20 transition-transform group-hover:-rotate-3"
-            >SG</span
+            class="grid size-10 place-items-center rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sky-600 dark:text-sky-400 shadow-sm dark:shadow-lg dark:shadow-sky-500/10 transition-transform group-hover:-rotate-3"
           >
-          <span
-            class="text-sm font-extrabold tracking-tight text-slate-950 dark:text-white"
-            >Sarah Golabvand</span
-          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="size-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+          </span>
+
         </a>
 
         <div class="hidden items-center gap-8 md:flex">
@@ -224,29 +235,13 @@
 
     <!--================================================================================START Footer-->
     <!-- =========================================================== START Order Form-->
-    {% include 'contact/contact.html' %}
+    {% include 'contact.html' %}
     <!-- =========================================================== END Order Form-->
     <footer class="border-t border-slate-200 py-8 dark:border-slate-800">
       <div
         class="mx-auto flex max-w-7xl flex-col gap-4 px-5 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-10"
       >
         <p>© 2026 Sarah Golabvand. Built with care.</p>
-        <div class="flex gap-5">
-          <a
-            href="#"
-            class="font-semibold transition hover:text-brand-600 dark:hover:text-brand-400"
-            >GitHub</a
-          >
-          <a
-            href="#"
-            class="font-semibold transition hover:text-brand-600 dark:hover:text-brand-400"
-            >LinkedIn</a
-          >
-          <a
-            href="mailto:hello@example.com"
-            class="font-semibold transition hover:text-brand-600 dark:hover:text-brand-400"
-            >Email</a
-          >
         </div>
       </div>
     </footer>

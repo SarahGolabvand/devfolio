@@ -1,10 +1,11 @@
 from django.urls import path
 from django.views.generic import TemplateView
+from .views import project_view, project_detail_view
 
 app_name = 'projects'
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='projects_list/projects.html'), name='projects'),
-    path('single',TemplateView.as_view(template_name='project_detail/project_detail.html'), name='project-detail')
+    path('', view=project_view, name='projects'),
+    path('<slug:slug>', view=project_detail_view, name='project-detail')
 
 ]
