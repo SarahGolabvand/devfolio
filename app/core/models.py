@@ -5,6 +5,7 @@ from django.contrib.auth.models import (AbstractBaseUser,
                                         AbstractUser, BaseUserManager)
 
 from django.conf import settings
+from django.core.validators import RegexValidator
 # Create your models here.
 
 # Authentication and Authorization
@@ -94,14 +95,38 @@ class ProfileModel(models.Model):
     avatar = models.ImageField(
         _("Avatar"), blank=True, null=True, upload_to='avatars/', help_text='Recommended: 1200 × 1500 px')
 
-    text_banner = models.CharField(_("Text Banner"), max_length=50)
+    location = models.CharField(_("location"), max_length=50)
     bio = models.TextField(
         _("biography"), max_length=255, blank=True, null=True)
+
+    # links
+    phone_regex = RegexValidator(
+        regex=r"^\+?1?\d{9,15}$",
+        message="Use the standard international format, e.g., +989123456789."
+    )
+
+    phone_number = models.CharField(max_length=20, validators=[
+        phone_regex], blank=True, verbose_name="Phone number")
+    email = models.EmailField(blank=True, verbose_name="Email")
+    github = models.URLField(blank=True, verbose_name="Github url")
+    linkedin = models.URLField(blank=True, verbose_name="linkedin url")
+    telegram = models.URLField(blank=True, verbose_name="Telegram url")
 
     created_at = models.DateTimeField(
         _("created at"), auto_now=False, auto_now_add=True)
     updated_at = models.DateTimeField(
         _("updated at"), auto_now=True, auto_now_add=False)
+
+    @property
+    def links(self):
+
+        return {
+            "phone": self.phone_number,
+            "email": self.email,
+            "github": self.github,
+            "linkedin": self.linkedin,
+            "telegram": self.telegram,
+        }
 
     @property
     def fullname(self):
@@ -163,3 +188,5 @@ class SkillsModel(models.Model):
 
     def __str__(self):
         return self.title
+
+

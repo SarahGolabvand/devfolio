@@ -135,30 +135,4 @@ class TagAdmin(admin.ModelAdmin):
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ('title',)
     search_fields = ('title',)
-    
-# ===================================================>>>> old method
-# @admin.register(Project)
-# class ProjectAdmin(admin.ModelAdmin):
-#     list_display = ('name', 'is_published',)
-#     list_filter = ('timeline', 'stack_items')
-#     search_fields = ('name',)
-
-
-# @admin.register(Tag)
-# class TagAdmin(admin.ModelAdmin):
-#     list_display = ('name',)
-
-
-# @admin.register(ProjectStackItem)
-# class StacksAdmin(admin.ModelAdmin):
-#     list_display = ['name']
-
-
-# @admin.register(ProjectScreenshots)
-# class ScreenshotsAdmin(admin.ModelAdmin):
-#     list_display = ['alt_text', 'is_primary']
-
-
-# @admin.register(ProjectKeyOutcome)
-# class KeyOutAdmin(admin.ModelAdmin):
-#     list_display = ['key_outcomes']
+ 
