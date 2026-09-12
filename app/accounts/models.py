@@ -41,9 +41,6 @@ class UserManager(BaseUserManager):
 
         return self.create_user(email, password, **extra_fields)
 
-    def __str__(self):
-        return super().__str__()
-
 
 class User(AbstractBaseUser, PermissionsMixin):
     """
@@ -86,8 +83,9 @@ class ProfileModel(models.Model):
         verbose_name = _("Profile")
         verbose_name_plural = _("Profiles")
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_(
-        "user"), on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, verbose_name=_("user"), on_delete=models.CASCADE)
+
     first_name = models.CharField(
         _("first_name"), max_length=50, blank=True, null=True)
     last_name = models.CharField(

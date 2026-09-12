@@ -13,18 +13,47 @@
   >
     <!-- Left Column: Content -->
     <div>
-      <div
-        class="mb-10 inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.16em] text-emerald-700 dark:text-emerald-400"
-      >
-        <span class="relative flex size-2.5">
-          <span
-            class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"
-          ></span>
-          <span
-            class="relative inline-flex size-2.5 rounded-full bg-emerald-500"
-          ></span>
-        </span>
-        Available for selected projects
+      <div class="mb-10 inline-flex flex-wrap items-center gap-3">
+        <div
+          class="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.16em] text-emerald-700 dark:text-emerald-400"
+        >
+          <span class="relative flex size-2.5">
+            <span
+              class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"
+            ></span>
+            <span
+              class="relative inline-flex size-2.5 rounded-full bg-emerald-500"
+            ></span>
+          </span>
+          Available for selected projects
+        </div>
+
+        {% if profile.location %}
+        <span class="text-slate-300 dark:text-slate-700">•</span>
+        <div
+          class="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400"
+        >
+          <svg
+            class="size-3.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+            />
+          </svg>
+          <span>{{ profile.location }}</span>
+        </div>
+        {% endif %}
       </div>
 
       <p class="mb-4 text-lg font-bold text-brand-600 dark:text-brand-400">
@@ -119,7 +148,7 @@
         class="absolute -inset-5 -z-10 rotate-3 rounded-[2.5rem] bg-brand-500/10"
       ></div>
 
-      <!-- Main Avatar Container (بدون تکرار) -->
+      <!-- Main Avatar Container -->
       <div
         class="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] border border-slate-200/80 bg-slate-100 shadow-xl dark:border-slate-800 dark:bg-slate-900"
       >

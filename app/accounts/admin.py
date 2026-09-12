@@ -38,7 +38,7 @@ class UserAdmin(BaseUserAdmin):
 class ProfileAdmin(ModelAdmin):
 
     list_display = ('user', 'first_name', 'last_name',
-                    'created_at', 'last_name')
+                    'created_at',)
     list_filter = ("created_at", 'updated_at')
     search_fields = ('last_name', 'user')
 

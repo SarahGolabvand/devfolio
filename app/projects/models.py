@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Project(models.Model):
-    
+
     slug = models.SlugField(_('slug'), max_length=255, unique=True, blank=True)
     thumbnail = models.ImageField(_("thumbnail"),
                                   upload_to='projects/thumbnails', null=True, blank=True)
@@ -38,7 +38,16 @@ class Project(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name, allow_unicode=True)
+            base_slug = slugify(self.name, allow_unicode=True) or "project"
+            slug = base_slug
+            counter = 1
+
+            while Project.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+
+            self.slug = slug
+
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -52,9 +61,9 @@ class Screenshot(models.Model):
 
     project = models.ForeignKey("Project", verbose_name=_(
         "project"), on_delete=models.CASCADE, related_name='screenshots')
-    
+
     image = models.ImageField(_("screenshot"), upload_to='projects/screenshots/',
-                              height_field=None, width_field=None, max_length=None,blank=True,null=True)
+                              height_field=None, width_field=None, max_length=None, blank=True, null=True)
     alt_text = models.CharField(_("alt text"), max_length=250, blank=True)
 
     is_primary = models.BooleanField(_("is primary?"))
