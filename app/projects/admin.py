@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from unfold.admin import ModelAdmin
 from .models import (Project,
                      Tag,
                      Screenshots,
@@ -47,7 +48,7 @@ class StackItemInline(admin.TabularInline):
 
 
 @admin.register(Project)
-class ProjectAdmin(admin.ModelAdmin):
+class ProjectAdmin(ModelAdmin):
     list_display = ('thumbnail_preview', 'name',
                     'is_published', 'created_at', 'display_order')
     list_display_links = ('thumbnail_preview', 'name')
@@ -125,14 +126,14 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 @admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
+class TagAdmin(ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
     
 
 
 @admin.register(Service)
-class ServiceAdmin(admin.ModelAdmin):
+class ServiceAdmin(ModelAdmin):
     list_display = ('title',)
     search_fields = ('title',)
  
