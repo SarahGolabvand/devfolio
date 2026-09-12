@@ -3,7 +3,8 @@ services:
     build:
        context: .
        dockerfile: dockerfile
-       
+    env_file:
+      - .env
     working_dir: /workspace/app
     container_name: backend
     command: ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
@@ -11,8 +12,4 @@ services:
     - .:/workspace
     ports:
       - "8000:8000"
-    environment:
-      - SECRET_KEY=django-insecure-6rw9ob1ibj^t&d_2tj02h@l#u-^q+3wscb8_@#p!_164mhnv=-
-      - DEBUG=True
-      - ALLOWED_HOSTS=127.0.0.1,localhost
-      
+    
