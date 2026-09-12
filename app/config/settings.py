@@ -46,7 +46,7 @@ LOCALE_PATHS = [
 
 INSTALLED_APPS = [
     "unfold",
-    "unfold.contrib.filters",  
+    "unfold.contrib.filters",
     "unfold.contrib.forms",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "projects.apps.ProjectsConfig",
-    "accounts.apps.AccountsConfig"
+    "accounts.apps.AccountsConfig",
+    "core.apps.CoreConfig"
 
 
 ]
@@ -83,6 +84,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "core.context_processors.global_profile",
             ],
         },
     },
@@ -97,7 +99,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite",
     }
 }
 
@@ -153,19 +155,13 @@ LOCALE_PATHS = [
 ]
 
 EMAIL_BACKEND = 'django.accounts.mail.backends.console.EmailBackend'
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
 
 UNFOLD = {
     "SITE_TITLE": "Sarah's Portfolio Admin",
     "SITE_HEADER": "Portfolio Control Center",
     "SITE_URL": "/",
-    # تم تاریک/روشن خودکار یا پیش‌فرض
-    "THEME": "dark",  # یا "light" یا None برای هماهنگی با مرورگر
+    "THEME": "dark",
     "COLORS": {
         "primary": {
             "50": "250 245 255",

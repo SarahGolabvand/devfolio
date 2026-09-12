@@ -76,8 +76,9 @@
         <img
           id="main-gallery-image"
           src="{{ first_image.image.url }}"
-          alt="{{ first_image.alt_text|default:project_obj.name }}"
-          class="h-full w-full object-cover transition-opacity duration-200"
+          alt="{{ first_image.alt_text|default:project_obj.name }}
+          class="h-full w-full object-cover object-center transition-opacity duration-200"
+          
           loading="eager"
         />
         {% endwith %}
@@ -104,16 +105,81 @@
           />
         </button>
         {% endfor %}
+        
       </div>
       {% endif %}
     </div>
+    {% else %}
+   <!-- Terminal Mockup Container (Aspect Ratio 16:9) -->
+      <div class="relative aspect-video w-full overflow-hidden rounded-2xl bg-[#090d16] p-3 sm:p-5 md:p-6 font-mono">
+        
+        <!-- Outer Window Frame -->
+        <div class="flex h-full w-full flex-col overflow-hidden rounded-xl border border-slate-800/80 bg-[#0c121e] shadow-2xl">
+          
+          <!-- Terminal Titlebar -->
+          <div class="flex items-center justify-between border-b border-slate-800/80 bg-[#0f172a]/60 px-4 py-2.5">
+            <div class="flex items-center gap-2">
+              <span class="size-2.5 rounded-full bg-[#f43f5e]"></span>
+              <span class="size-2.5 rounded-full bg-[#eab308]"></span>
+              <span class="size-2.5 rounded-full bg-[#10b981]"></span>
+            </div>
+            <span class="text-[11px] font-medium tracking-wide text-slate-400">bash — admin@portfolio:~</span>
+            <div class="w-10"></div> <!-- Spacer for visual balance -->
+          </div>
 
-    <!-- اسکریپت مستقل بدون نیاز به بلاک خارجی -->
+          <!-- Terminal Body / Content -->
+          <div class="flex flex-1 flex-col justify-start overflow-hidden p-3.5 sm:p-4 md:p-5 text-[11px] sm:text-xs md:text-[13px] leading-relaxed select-none">
+            
+            <!-- Command 1 -->
+            <div class="flex items-center gap-2 text-slate-300">
+              <span class="text-emerald-400 font-bold">➜</span>
+              <span class="text-sky-400 font-semibold">backend</span>
+              <span class="text-slate-500 font-normal">git:(<span class="text-rose-400">main</span>)</span>
+              <span class="text-slate-100">python manage.py seed_db</span>
+            </div>
+
+            <!-- Output 1 -->
+            <div class="mt-1 space-y-0.5 text-slate-400 text-[10px] sm:text-[11px] md:text-xs">
+              <p class="flex items-center gap-1.5 text-emerald-400/90">
+                <span>✔</span> <span>Superuser created: [admin]</span>
+              </p>
+              <p class="flex items-center gap-1.5 text-emerald-400/90">
+                <span>✔</span> <span>Loaded 6 projects & 14 tech stack items</span>
+              </p>
+            </div>
+
+            <!-- Command 2 -->
+            <div class="mt-2.5 sm:mt-3 flex items-center gap-2 text-slate-300">
+              <span class="text-emerald-400 font-bold">➜</span>
+              <span class="text-sky-400 font-semibold">backend</span>
+              <span class="text-slate-500 font-normal">git:(<span class="text-rose-400">main</span>)</span>
+              <span class="text-slate-100">docker compose up -d --build</span>
+            </div>
+
+            <!-- Output 2 -->
+            <div class="mt-1 space-y-0.5 text-slate-400 text-[10px] sm:text-[11px] md:text-xs">
+              <p><span class="text-blue-400">⠿</span> Container portfolio_db  <span class="text-emerald-400">Running</span></p>
+              <p><span class="text-blue-400">⠿</span> Container portfolio_web <span class="text-emerald-400">Started (port 8000)</span></p>
+            </div>
+
+            <!-- Active Prompt Line with Cursor -->
+            <div class="mt-2.5 sm:mt-3 flex items-center gap-2 text-slate-300">
+              <span class="text-emerald-400 font-bold">➜</span>
+              <span class="text-sky-400 font-semibold">backend</span>
+              <span class="text-slate-500 font-normal">git:(<span class="text-rose-400">main</span>)</span>
+              <span class="inline-block h-3.5 w-2 animate-pulse bg-sky-400 align-middle"></span>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
 
     {% endif %}
   </section>
 
-  <!--########################################### >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>END Screenshots placeholder -->
+  <!--#######>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>END Screenshots placeholder -->
   <!--########################################################################################## >>>>>>>>>>START Article-->
 
   <section

@@ -3,7 +3,7 @@ from django.utils.html import format_html
 from unfold.admin import ModelAdmin
 from .models import (Project,
                      Tag,
-                     Screenshots,
+                     Screenshot,
                      KeyOutcome,
                      StackItem,
                      Service)
@@ -14,7 +14,7 @@ from .models import (Project,
 
 
 class ScreenshotInline(admin.TabularInline):
-    model = Screenshots
+    model = Screenshot
     extra = 1
     fields = ('image_preview', 'image', 'alt_text',
               'is_primary', 'display_order')

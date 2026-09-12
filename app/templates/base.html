@@ -13,7 +13,7 @@
       name="description"
       content="A modern portfolio for a backend developer specializing in Django, APIs, and scalable web products."
     />
-    <link rel="icon" href="{% static 'favicon.png' %}" type="image/png">
+    <link rel="icon" href="{% static 'favicon.svg' %}" type="image/svg+xml">
     <title>{{profile.fullname}}</title>
     <script>
       (() => {
@@ -144,7 +144,7 @@
         </div>
 
         <div class="flex items-center gap-2">
-          {% include "language_switcher.html" %}
+          
           <button
             type="button"
             data-theme-toggle
