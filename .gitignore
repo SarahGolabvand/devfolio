@@ -187,3 +187,5 @@ db.sqlite
 *.sqlite
 db.sqlite
 staticfiles
+.DS_Store
+app/.DS_Store
