@@ -1,94 +1,54 @@
-# FROM python:3.13-slim
-
-# ENV PYTHONDONTWRITEBYTECODE=1 \
-#     PYTHONUNBUFFERED=1 \
-#     POETRY_VERSION=2.0.1 \
-#     POETRY_VIRTUALENVS_CREATE=false
-
-# WORKDIR /workspace
-
-
-# RUN apt-get update \
-#     && apt-get install -y --no-install-recommends \
-#     build-essential \
-#     libpq-dev \
-#     && rm -rf /var/lib/apt/lists/*
-
-# RUN pip install --no-cache-dir "poetry==${POETRY_VERSION}"
-
-# COPY pyproject.toml poetry.lock* ./
-
-
-# RUN poetry install --no-interaction --no-ansi --no-root
-
-# ENV HOME=/workspace
-
-# RUN addgroup --system appgroup && \
-#     adduser --system --ingroup appgroup --home /workspace --no-create-home appuser
-
-
-# COPY . .
-# RUN chown -R appuser:appgroup /workspace
-
-# USER appuser
-
-# EXPOSE 8000
 # --- STAGE 1: Builder ---
 FROM python:3.13-slim AS builder
 
-# تعریف متغیرها برای استفاده در کل فرآیند
 ENV POETRY_VERSION=2.0.1 \
     POETRY_NO_INTERACTION=1 \
-    POETRY_VIRTUALENVS_IN_PROJECT=1 \
+    POETRY_VIRTUALENVS_CREATE=false \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
 WORKDIR /workspace
 
-# نصب وابستگی‌های سیستم برای کامپایل
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# نصب Poetry
 RUN pip install --no-cache-dir "poetry==${POETRY_VERSION}"
 
-# کپی فایل‌های تنظیمات پایتون
 COPY pyproject.toml poetry.lock* ./
 
-# نصب پکیج‌ها در یک Virtual Env داخل خود پوشه /workspace/.venv
-RUN poetry install --no-root --only main
+# اینجا ما پکیج‌ها رو مستقیماً در مسیر پایتونِ سیستم نصب می‌کنیم 
+# تا در مرحله بعد راحت‌تر کپی کنیم
+RUN poetry install --no-interaction --no-ansi --no-root
 
-# --- STAGE 2: Final (Runtime) ---
+# --- STAGE 2: Final ---
 FROM python:3.13-slim
 
-# تنظیمات محیطی برای پایتون
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PATH="/workspace/.venv/bin:$PATH" \
-    HOME=/workspace
+    # این خط حیاتی است: پایتون را مجبور می‌کند به مسیر نصب شده در مرحله قبل نگاه کند
+    PYTHONPATH="/usr/local/lib/python3.13/site-packages"
 
 WORKDIR /workspace
 
-# نصب فقط کتابخانه‌های مورد نیاز برای اجرا (بدون ابزار کامپایل)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq5 \
     && rm -rf /var/lib/apt/lists/*
 
-# ایجاد کاربر و گروه سیستم (بدون ایجاد home اضافی در مسیرهای دیگر)
 RUN addgroup --system appgroup && \
     adduser --system --ingroup appgroup --home /workspace --no-create-home appuser
 
-# کپی کردن Virtual Environment ساخته شده از مرحله Builder
-COPY --from=builder /workspace/.venv /workspace/.venv
+# کپی کردن تمام پکیج‌های نصب شده از مرحله builder به مسیر اصلی پایتون در مرحله final
+COPY --from=builder /usr/local/lib/python3.13/site-packages /usr/local/lib/python3.13/site-packages
+COPY --from=builder /usr/local/bin /usr/local/bin
 
-# کپی کردن کل پروژه با حفظ دسترسی‌های کاربر appuser
-# نکته: این کار باعث می‌شود فایل‌ها مستقیماً با مالکیت appuser کپی شوند (بهینه‌تر از chown جداگانه)
+# کپی کردن کد پروژه
 COPY --chown=appuser:appgroup . .
 
 USER appuser
 
 EXPOSE 8000
 
+# استفاده از gunicorn (مطمئن شو در pyproject.toml هست)
 CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000"]
