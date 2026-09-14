@@ -7,3 +7,12 @@ __pycache__
 staticfiles
 media
 node_modules
+.git
+.venv
+__pycache__
+*.pyc
+*.pyo
+.env
+app/.env
+media/
+staticfiles/
