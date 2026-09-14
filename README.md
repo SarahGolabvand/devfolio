@@ -86,7 +86,7 @@ Ensure you have [Docker](https://docs.docker.com/get-docker/) and [GNU Make](htt
 
 ```bash
 # Clone the repository
-git clone https://github.com/SarahGolabvand/modern-portfolio.git
+git clone https://github.com/SarahGolabvand/devfolio.git
 cd your-repo
 
 # Create environment file
