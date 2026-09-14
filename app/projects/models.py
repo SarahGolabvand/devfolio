@@ -38,25 +38,35 @@ class Project(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            base_slug = slugify(self.name, allow_unicode=True) or "project"
+            slug = base_slug
+            counter = 1
+
+            while Project.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+
+            self.slug = slug
+
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
 
 
-class Screenshots(models.Model):
+class Screenshot(models.Model):
     class Meta:
         ordering = ['-is_primary', 'display_order', 'id']
         db_table = 'projects_screenshots'
 
     project = models.ForeignKey("Project", verbose_name=_(
         "project"), on_delete=models.CASCADE, related_name='screenshots')
+
     image = models.ImageField(_("screenshot"), upload_to='projects/screenshots/',
-                              height_field=None, width_field=None, max_length=None)
+                              height_field=None, width_field=None, max_length=None, blank=True, null=True)
     alt_text = models.CharField(_("alt text"), max_length=250, blank=True)
 
-    is_primary = models.BooleanField(_("is primary"))
+    is_primary = models.BooleanField(_("is primary?"))
     display_order = models.PositiveIntegerField(_("display order"), default=0)
 
     def __str__(self):
@@ -69,7 +79,7 @@ class KeyOutcome(models.Model):
         db_table = 'projects_key_outcomes'
 
     project = models.ForeignKey("Project", verbose_name=_(
-        "project's tags"), on_delete=models.CASCADE, related_name='key_outcomes')
+        "project"), on_delete=models.CASCADE, related_name='key_outcomes')
 
     key_outcomes = models.CharField(_("key_outcomes"), max_length=250)
     display_order = models.PositiveIntegerField(default=0)

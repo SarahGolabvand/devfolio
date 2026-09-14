@@ -181,3 +181,9 @@ cython_debug/
 .cursorindexingignore
 media
 staticfiles
+db.sqlite
+.env
+*.sqlite3
+*.sqlite
+db.sqlite
+staticfiles

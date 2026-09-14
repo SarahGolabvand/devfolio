@@ -18,4 +18,4 @@ def project_view(request):
 def project_detail_view(request, slug):
 
     project = get_object_or_404(Project, slug=slug)
-    return render(request, template_name='project_detail/project_detail.html', context={'project_obj': project})
+    return render(request, template_name='project_detail.html', context={'project_obj': project})
