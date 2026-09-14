@@ -59,13 +59,15 @@ Featuring a modular architecture, robust test coverage, and a streamlined admin 
 ```text
 .django-portfolio/
 ├── app/
-│   ├── accounts/          # Custom user management
+│   ├── accounts/           # Custom user management
 │   ├── config/             # Project settings & WSGI/ASGI
 │   ├── core/               # Shared utilities & base models
 │   ├── projects/           # Core business logic (Projects, Tags, etc.)
 │   ├── media/              # User-uploaded files
-│   ├── static/             # Global static assets
-│   └── templates/          # Django HTML templates
+│   ├── static/
+│   ├──.env.example         # Global static assets
+│   └── templates/.         # Django HTML templates           
+
 ├── docker/                # Dockerfiles and environment configs
 ├── Makefile               # Task automation scripts
 ├── pyproject.toml         # Poetry dependencies
