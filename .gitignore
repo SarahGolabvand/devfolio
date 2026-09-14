@@ -183,3 +183,7 @@ media
 staticfiles
 db.sqlite
 .env
+*.sqlite3
+*.sqlite
+db.sqlite
+staticfiles
