@@ -43,3 +43,11 @@ prod-seed:
 # --- Clean Down ---
 down:
 	docker compose -f docker/compose.yml down
+
+clean-all:
+	docker compose -f docker/compose.yml -f docker/compose.prod.yml down -v --remove-orphans
+	docker compose -f docker/compose.yml -f docker/compose.dev.yml down -v --remove-orphans 2>/dev/null || true
+	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+	find . -type f -name "*.pyc" -delete 2>/dev/null || true
+	find . -type f -name "*.pyo" -delete 2>/dev/null || true
+	@echo "All containers, volumes, and Python caches cleaned successfully."

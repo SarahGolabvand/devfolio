@@ -1,86 +1,56 @@
 # Django Portfolio & Showcase Platform
 
-A containerized personal portfolio and project showcase platform built with **Django**, **PostgreSQL**, and **Docker**.
+An open-source, production-ready full-stack platform engineered for developers to showcase their professional journey. Built with **Django**, **PostgreSQL**, and **Tailwind CSS**, the entire ecosystem is fully containerized using **Docker** for seamless deployment.
 
-The platform is designed to present projects, technical skills, experience, and case studies through a clean and maintainable architecture, while providing a fully containerized development and production workflow.
+Featuring a modular architecture, robust test coverage, and a streamlined admin experience via **Django Unfold**, this platform is designed to bridge the gap between local development and production-grade hosting.
 
 ---
 
 <div align="center">
-
-  <img src="app/projects/seed_assets/dark-main.png" alt="Portfolio Hero Preview" width="100%" />
-
+  <img src="app/projects/seed_assets/main.png" alt="Portfolio Hero Preview" width="100%" />
 </div>
 
 <br>
 
-## 📸 Screenshots
+## 📸 Visual Overview
 
-### Portfolio Overview
+### Interface Preview
 
 <div align="center">
-
-  <img src="app/projects/seed_assets/light-main.png" width="49%" alt="Portfolio Home Page">
-  <img src="docs/screenshots/projects.png" width="49%" alt="Projects Page">
-
-<br><br>
-
-  <img src="docs/screenshots/project-detail.png" width="49%" alt="Project Detail Page">
-  <img src="docs/screenshots/admin-dashboard.png" width="49%" alt="Django Admin Dashboard">
-
+  <img src="app/projects/seed_assets/project.jpg" width="48%" alt="Project detail view">
+  <img src="app/projects/seed_assets/pannel-projectList.png" width="48%" alt="Admin Dashboard: Project List">
 </div>
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-* 🧩 Project showcase and detailed case studies
-* 📝 Rich project descriptions and structured content
-* 🖼️ Multiple images for each project
-* 🛠️ Skills and technology showcase
-* 🌍 Internationalization-ready architecture
-* 🔐 Django authentication and admin interface
-* 🗄️ PostgreSQL database
-* 🐳 Dockerized development and production environments
-* ⚡ Optimized multi-stage Docker build
-* ⚙️ Automated workflows through GNU Make
-* 📦 Dependency management with Poetry
-* 🔄 Database migration and initial data seeding
-* 🔒 Production-oriented configuration and security practices
+### 🏗️ Core Functionality
+
+- **Project Showcase:** Dynamic rendering of case studies and technical projects.
+- **Rich Content Management:** Support for multi-image galleries and structured technical details.
+- **Skill Matrix:** Highlighting tech stacks per project for better visibility.
+- **Internationalization (i18n):** Architecture prepared for multi-language support.
+
+### 🛠️ Engineering Excellence
+
+- **Containerized Ecosystem:** Fully orchestrated via Docker and Docker Compose.
+- **Robust Testing:** Comprehensive unit and integration tests for model integrity and view logic.
+- **Idempotent Data Seeding:** Custom Management Commands to ensure consistent development environments.
+- **Strict Security:** Production-ready configuration for environment variables and sensitive data.
+- **Automated Workflows:** Streamlined via `GNU Make` for one-command development and deployment.
 
 ---
 
 ## 🚀 Tech Stack & Architecture
 
-| Technology                  | Purpose                             |
-| --------------------------- | ----------------------------------- |
-| **Python 3.13**             | Programming language                |
-| **Django 5.x**              | Web framework                       |
-| **PostgreSQL 16**           | Relational database                 |
-| **Poetry**                  | Dependency management               |
-| **Docker**                  | Containerization                    |
-| **Docker Compose**          | Multi-container orchestration       |
-| **GNU Make**                | Development & deployment automation |
-| **HTML / CSS / JavaScript** | Frontend                            |
-
-### Architecture
-
-The application follows a modular Django architecture with separate configuration, core functionality, and feature-specific applications.
-
-```text
-Client
-   │
-   ▼
-Django
-   │
-   ├── Core
-   ├── Projects
-   ├── Portfolio
-   └── Configuration
-          │
-          ▼
-      PostgreSQL
-```
+| Layer        | Technology                  | Purpose                          |
+| :----------- | :-------------------------- | :------------------------------- |
+| **Backend**  | `Python 3.13`, `Django 6.x` | Core logic and ORM               |
+| **Database** | `PostgreSQL 16`             | Persistent relational storage    |
+| **DevOps**   | `Docker`, `Docker Compose`  | Containerization & Orchestration |
+| **Workflow** | `Poetry`, `GNU Make`        | Dependency & Task Automation     |
+| **Frontend** | `Tailwind CSS`, `JS`        | Responsive UI/UX                 |
 
 ---
 
@@ -88,360 +58,123 @@ Django
 
 ```text
 .django-portfolio/
-│
 ├── app/
-│   ├── accounts/
-│   ├── config/
-│   ├── core/
-│   ├── media/
-│   ├── projects/
-│   ├── static/
-│   ├── staticfiles/
-│   └── templates/
-│
-├── docker/
-│
-├── docs/
-│   └── screenshots/
-│       ├── hero.png
-│       ├── home.png
-│       ├── projects.png
-│       ├── project-detail.png
-│       └── admin.png
-│
-├── .env
-├── .env.sample
-├── .dockerignore
-├── .gitignore
-├── LICENSE
-├── Makefile
-├── poetry.lock
-├── pyproject.toml
-└── README.md
+│   ├── accounts/          # Custom user management
+│   ├── config/             # Project settings & WSGI/ASGI
+│   ├── core/               # Shared utilities & base models
+│   ├── projects/           # Core business logic (Projects, Tags, etc.)
+│   ├── media/              # User-uploaded files
+│   ├── static/             # Global static assets
+│   └── templates/          # Django HTML templates
+├── docker/                # Dockerfiles and environment configs
+├── Makefile               # Task automation scripts
+├── pyproject.toml         # Poetry dependencies
+└── .env.example           # Template for environment variables
 ```
 
 ---
 
-## 🛠️ Quick Start
+## 🛠️ Getting Started (Development)
 
-### Prerequisites
+### 1. Prerequisites
 
-Make sure the following are installed:
+Ensure you have [Docker](https://docs.docker.com/get-docker/) and [GNU Make](https://www.gnu.org/software/make/) installed.
 
-* [Docker](https://docs.docker.com/get-docker/)
-* [Docker Compose](https://docs.docker.com/compose/)
-* [GNU Make](https://www.gnu.org/software/make/)
-
-### 1. Clone the repository
+### 2. Setup Environment
 
 ```bash
-git clone https://github.com/your-username/your-repository.git
-cd your-repository
-```
+# Clone the repository
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
 
-### 2. Configure environment variables
-
-Copy the example environment file:
-
-```bash
+# Create environment file
 cp .env.example .env
 ```
 
-Update `.env` with your local configuration.
+> **Note:** Edit `.env` to configure your local credentials. Never commit your real `.env` file.
 
-Example:
+### 3. Orchestrate Development Environment
 
-```env
-DEBUG=True
-
-POSTGRES_DB=portfolio
-POSTGRES_USER=portfolio
-POSTGRES_PASSWORD=change-me
-POSTGRES_HOST=db
-POSTGRES_PORT=5432
-
-DJANGO_SECRET_KEY=change-me
-```
-
-> Never commit real secrets, passwords, API keys, or production credentials to Git.
-
-### 3. Build the development environment
+Use the provided `Makefile` to handle complex Docker commands effortlessly:
 
 ```bash
+# Build and launch all services
 make dev-build
-```
 
-### 4. Start the application
-
-```bash
-make dev
-```
-
-### 5. Apply database migrations
-
-```bash
+# Apply database migrations
 make dev-migrate
-```
 
-### 6. Seed initial data
-
-```bash
+# Seed the database with initial data
 make dev-seed
 ```
 
-The application will be available at:
-
-```text
-http://localhost:8000
-```
+The application will be available at: `http://localhost:8000`
 
 ---
 
-## 🎮 Makefile Commands
+## 🏗️ Production Deployment
 
-Common development and deployment workflows are available through the `Makefile`.
+The project follows a **Twelve-Factor App** methodology, ensuring a strict separation of config from code.
 
-| Command            | Description                                          |
-| ------------------ | ---------------------------------------------------- |
-| `make dev`         | Start development containers                         |
-| `make dev-build`   | Rebuild images and start the development environment |
-| `make dev-migrate` | Apply database migrations                            |
-| `make dev-seed`    | Populate the database with initial data              |
-| `make dev-down`    | Stop development containers                          |
-| `make prod-build`  | Build the production image                           |
-| `make prod-static` | Run Django `collectstatic`                           |
-| `make clean-all`   | Remove containers, networks and database volumes     |
-
-> ⚠️ `make clean-all` is destructive and removes persistent database volumes.
-
----
-
-## 🐳 Docker
-
-The project uses a multi-stage Docker build to separate dependency compilation from the runtime environment.
-
-### Build stages
-
-```text
-Builder Stage
-    │
-    ├── Install build dependencies
-    ├── Install Poetry
-    ├── Install Python dependencies
-    │
-    ▼
-Runtime Stage
-    │
-    ├── python:3.13-slim
-    ├── Application dependencies
-    ├── Django application
-    └── Non-root user
-```
-
-### Container optimization
-
-* Multi-stage Docker build
-* Build dependencies excluded from the runtime image
-* `python:3.13-slim` runtime image
-* Non-root application user
-* Persistent PostgreSQL volume
-* Separate static files volume
-* Environment-based configuration
-
----
-
-## 🗄️ Database
-
-The application uses **PostgreSQL 16** as its primary relational database.
-
-Database configuration is provided through environment variables rather than being hard-coded into the application.
-
-This allows the same application image to be used across different environments:
-
-```text
-Development
-     │
-     ▼
-PostgreSQL
-
-Production
-     │
-     ▼
-PostgreSQL
-```
-
----
-
-## 🌍 Internationalization
-
-The application is structured to support multiple languages and can be extended with Django's internationalization framework.
-
-The architecture is prepared for:
-
-* Translatable interface strings
-* Locale-aware formatting
-* Multiple language support
-* Future RTL language support
-
----
-
-## 🔐 Security
-
-Production configuration is designed around Django security best practices, including:
-
-* Environment-based secrets
-* Secure cookie configuration
-* CSRF protection
-* Host validation
-* Debug disabled in production
-* Non-root Docker container
-* PostgreSQL credentials stored outside the source code
-
-Before deploying to production, review Django's deployment checklist and configure HTTPS, allowed hosts, trusted origins, and secure cookies appropriately.
-
----
-
-## 📊 Project Showcase
-
-Each portfolio project can contain:
-
-* Project title
-* Short description
-* Detailed case study
-* Technologies used
-* Project images
-* GitHub repository
-* Live demo
-* Development status
-* Additional metadata
-
-Example:
-
-```text
-Project
-│
-├── Title
-├── Description
-├── Case Study
-├── Technologies
-├── Images
-├── GitHub URL
-└── Live Demo URL
-```
-
----
-
-## 🧪 Development Workflow
-
-A typical development workflow looks like this:
-
-```text
-Clone Repository
-       │
-       ▼
-Configure .env
-       │
-       ▼
-make dev-build
-       │
-       ▼
-make dev
-       │
-       ▼
-make dev-migrate
-       │
-       ▼
-make dev-seed
-       │
-       ▼
-Develop & Test
-       │
-       ▼
-Production Build
-```
-
----
-
-## 📦 Package Management
-
-Python dependencies are managed using **Poetry**.
-
-Project dependencies and metadata are defined in:
-
-```text
-pyproject.toml
-```
-
-The exact dependency versions are locked in:
-
-```text
-poetry.lock
-```
-
-This provides reproducible dependency installation across environments.
-
----
-
-## 🚀 Production
-
-Build the production image:
+### Deployment Workflow
 
 ```bash
+# Build optimized production images
 make prod-build
+
+# Run migrations on the production database
+make prod-migrate
+
+# Seed production data (if required)
+make prod-seed
 ```
 
-Collect static files:
+**Production Checklist:**
 
-```bash
-make prod-static
-```
-
-Before deploying, configure production environment variables and verify:
-
-* `DEBUG=False`
-* Strong `DJANGO_SECRET_KEY`
-* Correct `ALLOWED_HOSTS`
-* PostgreSQL credentials
-* HTTPS
-* Secure cookies
-* CSRF trusted origins
-* Static/media storage
-* Database backups
+- [ ] Update `DJANGO_SECRET_KEY` to a high-entropy string.
+- [ ] Configure `ALLOWED_HOSTS` with your domain.
+- [ ] Set `DEBUG=False`.
+- [ ] Ensure `SECURE_SSL_REDIRECT` and `CSRF_TRUSTED_ORIGINS` are configured for HTTPS.
 
 ---
 
-## 🗺️ Roadmap
+## 🎮 Automation with Makefile
 
-* [x] Django project setup
-* [x] PostgreSQL integration
-* [x] Docker development environment
-* [x] Multi-stage Docker build
-* [x] Project showcase
-* [x] Multiple project images
-* [x] Django Admin integration
-* [ ] Authentication improvements
-* [ ] Contact form
-* [ ] Email integration
-* [ ] Project filtering
-* [ ] Search functionality
-* [ ] Analytics dashboard
-* [ ] Automated tests
-* [ ] CI/CD pipeline
-* [ ] Production deployment
+The `Makefile` abstracts complex Docker commands into simple, intuitive tasks.
+
+| Command            | Action                                              |
+| :----------------- | :-------------------------------------------------- |
+| `make dev`         | Start development containers                        |
+| `make dev-build`   | Rebuild and start dev environment                   |
+| `make dev-migrate` | Run Django migrations                               |
+| `make dev-seed`    | Execute idempotent data seeding                     |
+| `make dev-down`    | Stop and remove dev containers                      |
+| `make prod-build`  | Build optimized production images                   |
+| `make clean-all`   | **Destructive:** Removes all containers and volumes |
+
+---
+
+## 📦 Dependency Management
+
+We use **Poetry** for deterministic dependency management. This ensures that every developer and every environment (Dev/Prod) uses the exact same package versions, preventing the "it works on my machine" syndrome.
+
+```bash
+# To add a new dependency
+poetry add <package-name>
+```
 
 ---
 
 ## 👩‍💻 Author
 
-**Sarah Golaband**
+**Sarah Golabvand**
+_Backend Engineer specializing in scalable and reliable systems._
 
-* LinkedIn: [linkedin.com/in/sarahgolaband](https://linkedin.com)
-* GitHub: [@your-username](https://github.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/sarah-golabvand)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=flat&logo=github&logoColor=white)](https://github.com/SarahGolabvand)
 
 ---
 
-## 📄 License
-
-This project is available for educational and portfolio purposes.
-
-If you plan to reuse or distribute the code, please add an appropriate license to the repository.
+<div align="center">
+  <sub>Designed with precision. Built for reliability.</sub>
+</div>
