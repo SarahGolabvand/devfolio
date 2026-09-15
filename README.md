@@ -76,7 +76,7 @@ Ensure you have [Docker](https://docs.docker.com/get-docker/) and [GNU Make](htt
 ```bash
 # Clone the repository
 git clone https://github.com/SarahGolabvand/devfolio.git
-cd your-repo
+cd devfolio
 
 # Create your local environment file
 cp .env.example .env
