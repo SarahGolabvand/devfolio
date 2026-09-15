@@ -1,6 +1,6 @@
 from pathlib import Path
 from decouple import config
-
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -8,6 +8,12 @@ SECRET_KEY = config('SECRET_KEY')
 
 USE_I18N = False
 LANGUAGE_CODE = "en"
+
+
+csrf_trusted_origins_raw = os.getenv("CSRF_TRUSTED_ORIGINS", "")
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip() for origin in csrf_trusted_origins_raw.split(",") if origin.strip()
+]
 
 
 INSTALLED_APPS = [

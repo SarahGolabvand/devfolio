@@ -1,8 +1,10 @@
 import dj_database_url
 from .base import *
-
+import os
 
 DEBUG = True
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -24,3 +26,4 @@ DATABASES = {
         conn_health_checks=True,
     )
 }
+
