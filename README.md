@@ -1,6 +1,6 @@
 # Django Portfolio & Showcase Platform
 
-An open-source, production-ready full-stack platform engineered for developers to showcase their professional journey. Built with **Django**, **PostgreSQL**, and **Tailwind CSS**, the entire ecosystem is fully containerized using **Docker** for seamless deployment.
+An open-source, production-ready platform engineered for developers to showcase their professional journey. Built with **Django**, **PostgreSQL**, and **Tailwind CSS**, the entire ecosystem is fully containerized using **Docker** for seamless deployment.
 
 Featuring a modular architecture, robust test coverage, and a streamlined admin experience via **Django Unfold**, this platform is designed to bridge the gap between local development and production-grade hosting.
 
