@@ -57,11 +57,10 @@ Featuring a modular architecture, robust test coverage, and a streamlined admin 
 │   ├── media/             # User-uploaded files
 │   ├── static/            # Global static assets
 │   ├── templates/         # Django HTML templates
-│   └── .env.example           # Template for environment variables
+│   └── .env.example       # Template for environment variables
 ├── docker/                # Dockerfiles and environment configs
 ├── Makefile               # Task automation scripts
 └── pyproject.toml         # Poetry dependencies
-└── 
 ```
 
 ---
