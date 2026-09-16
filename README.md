@@ -56,11 +56,12 @@ Featuring a modular architecture, robust test coverage, and a streamlined admin 
 │   ├── projects/          # Core business logic (Projects, Tags, etc.)
 │   ├── media/             # User-uploaded files
 │   ├── static/            # Global static assets
-│   └── templates/         # Django HTML templates
+│   ├── templates/         # Django HTML templates
+│   └── .env.example           # Template for environment variables
 ├── docker/                # Dockerfiles and environment configs
 ├── Makefile               # Task automation scripts
-├── pyproject.toml         # Poetry dependencies
-└── .env.example           # Template for environment variables
+└── pyproject.toml         # Poetry dependencies
+└── 
 ```
 
 ---
@@ -79,7 +80,9 @@ git clone https://github.com/SarahGolabvand/devfolio.git
 cd devfolio
 
 # Create your local environment file
+cd app
 cp .env.example .env
+
 ```
 
 Generate a secure, high-entropy secret key and paste it into `SECRET_KEY` inside `.env`:
