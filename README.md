@@ -21,7 +21,7 @@ Featuring a modular architecture, robust test coverage, and a streamlined admin 
 - **Project Showcase:** Dynamic rendering of case studies and technical projects.
 - **Rich Content Management:** Support for multi-image galleries and structured technical details via Django Admin.
 - **Skill Matrix:** Highlighting tech stacks per project for better visibility.
-- **Internationalization (i18n):** Architecture prepared for multi-language support.
+
 
 ### 🛠️ Engineering Excellence
 
